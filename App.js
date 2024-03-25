@@ -3,13 +3,16 @@ import {StatusBar} from "react-native";
 import {NavigationContainer} from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createDrawerNavigator } from "@react-navigation/drawer";
-import MealsOverviewScreen from "./screens/MealsOverviewScreen";
-import MealDetailScreen from "./screens/MealDetailScreen";
 import FavoritesScreen from "./screens/FavoritesScreen";
 import Ionicons from "react-native-vector-icons/Ionicons";
 // import FavoritesContextProvider from "./store/context/favorites-context";
 import {Provider} from "react-redux"
 import {store} from "./store/redux/store"
+import AnimalDetailScreen from "./screens/AnimalDetailScreen";
+import AnimalsOverviewScreen from "./screens/AnimalsOverviewScreen";
+import MapScreen from "./screens/MapScreen";
+import InventoryMapScreen from "./screens/InventoryMapScreen";
+import LocationHelper from "./LocationHelper";
 
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -36,7 +39,7 @@ function DrawerNavigator() {
             name="Categories"
             component={CategoriesScreen}
             options={{
-                title: 'Meal Categories',
+                title: 'Animal Categories',
                 drawerIcon: ({ color, size }) => {
                     return (
                         <Ionicons name="list" size={size} color={color} />
@@ -56,6 +59,36 @@ function DrawerNavigator() {
                 }
             }}
         />
+        <Drawer.Screen name={'Map'}
+                        component={MapScreen}
+                        options={{
+                            title: 'Map',
+                            drawerIcon: ({ color, size }) => {
+                                return (
+                                    <Ionicons name="map" size={size} color={color} />
+                                )
+                            }
+                        }} />
+        <Drawer.Screen name={'Inventory Map'}
+                        component={InventoryMapScreen}
+                        options={{
+                            title: 'Inventory Map',
+                            drawerIcon: ({ color, size }) => {
+                                return (
+                                    <Ionicons name="map" size={size} color={color} />
+                                )
+                            }
+                        }} />
+        <Drawer.Screen name={'Location Helper'}
+                        component={LocationHelper}
+                        options={{
+                            title: 'Location Helper',
+                            drawerIcon: ({ color, size }) => {
+                                return (
+                                    <Ionicons name="map" size={size} color={color} />
+                                )
+                            }
+                        }} />
     </Drawer.Navigator>
 }
 
@@ -84,14 +117,14 @@ export default function App() {
                           options={{headerShown: false}}
                       />
                       <Stack.Screen
-                          name="Meals"
-                          component={MealsOverviewScreen}
+                          name="Animals"
+                          component={AnimalsOverviewScreen}
                       />
                       <Stack.Screen
-                          name="MealDetail"
-                          component={MealDetailScreen}
+                          name="AnimalDetail"
+                          component={AnimalDetailScreen}
                           options={{
-                              title: 'Meal Details',
+                              title: 'Animal Details',
                           }}
                       />
                   </Stack.Navigator>

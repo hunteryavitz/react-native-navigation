@@ -1,27 +1,27 @@
-import { CATEGORIES } from "../data/dummy-data";
 import React from 'react';
 import { FlatList, View, StyleSheet } from 'react-native';
 import CategoryGridTile from "../components/CategoryGridTile";
+import {ANIMAL_CATEGORIES} from "../data/animal-data";
 
 function CategoriesScreen({ navigation }) {
 
     function renderCategoryItem(itemData) {
         function pressHandler() {
             console.log('Category pressed');
-            navigation.navigate('Meals', {
+            navigation.navigate('Animals', {
                 categoryId: itemData.item.id
             });
         }
 
         return (
-            <CategoryGridTile title={itemData.item.title} color={itemData.item.color} onPress={pressHandler} />
+            <CategoryGridTile title={itemData.item.title} icon={itemData.item.icon} onPress={pressHandler} />
         );
     }
 
     return (
         <View style={styles.screen}>
             <FlatList
-                data={CATEGORIES}
+                data={ANIMAL_CATEGORIES}
                 keyExtractor={(item) => item.id}
                 renderItem={renderCategoryItem}
                 numColumns={2}

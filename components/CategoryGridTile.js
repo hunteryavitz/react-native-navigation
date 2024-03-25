@@ -1,16 +1,11 @@
-import {
-    Pressable,
-    View,
-    Text,
-    StyleSheet,
-    Dimensions,
-    Platform
-} from "react-native";
+import {Dimensions, Image, Platform, Pressable, StyleSheet, Text, View} from "react-native";
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
 const SCREEN_HEIGHT = Dimensions.get('window').height;
 
-function CategoryGridTile({title, color, onPress}) {
+function CategoryGridTile({title, icon, onPress}) {
+
+    console.log(icon)
 
     return (
         <View style={styles.gridItem}>
@@ -21,7 +16,8 @@ function CategoryGridTile({title, color, onPress}) {
                 ]}
                 android_ripple={{color: '#CCC'}}
                 onPress={onPress}>
-                <View style={[styles.gridContent, {backgroundColor: color}]}>
+                <View style={styles.gridContent}>
+                    <Image source={{uri: icon}} style={{width: 120, height: 120}} />
                     <Text style={styles.title}>
                         {title}
                     </Text>
