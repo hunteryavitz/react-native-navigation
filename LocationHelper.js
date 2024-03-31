@@ -1,27 +1,19 @@
 import React, { useState, useEffect } from 'react'
-import {Platform, View, StyleSheet, Button, Text, Alert} from 'react-native'
+import {Platform, View, StyleSheet, Button, Text, Alert, Image} from 'react-native'
 import * as Device from 'expo-device'
 import * as Location from 'expo-location'
-import MapView, { Circle } from 'react-native-maps'
+import MapView, { Marker } from 'react-native-maps'
 import { getDistance } from 'geolib'
 
 export default function LocationHelper() {
     const [devicePosition, setDevicePosition] = useState(null);
     const [inventoryPosition, setInventoryPosition] = useState(null)
-    const [isNear, setIsNear] = useState(false)
     const [errorMsg, setErrorMsg] = useState(null)
 
     useEffect(() => {
-
         let subscription
-        (async () => {
-            if (Platform.OS === 'android' && !Device.isDevice) {
-                setErrorMsg(
-                    'This will not work on Snack in an Android Emulator.'
-                )
-                return
-            }
 
+        (async () => {
             let { status } = await Location.requestForegroundPermissionsAsync()
             if (status !== 'granted') {
                 await setErrorMsg('Permission to access location was denied: ' + status)
@@ -33,13 +25,11 @@ export default function LocationHelper() {
                 timeInterval: 500,
                 distanceInterval: 1,
             }, (newLocation) => {
-                console.log(newLocation)
                 setDevicePosition(newLocation)
                 if (inventoryPosition) {
                     checkProximity(newLocation.coords, inventoryPosition)
                 }
             })
-
         })()
 
         return () => {
@@ -51,22 +41,17 @@ export default function LocationHelper() {
         const distance = getDistance(
             { latitude: deviceCoords.latitude, longitude: deviceCoords.longitude },
             { latitude: inventoryCoords.latitude, longitude: inventoryCoords.longitude }
-        );
+        )
 
-        if (distance < 10) { // Define your proximity threshold here, e.g., 10 meters
-            if (!isNear) {
-                setIsNear(true);
-                // Trigger the snackbar or popup
-                Alert.alert("Inventory Nearby", "You are close to an inventory item!", [
-                    { text: "OK" }
-                ]);
-            }
-        } else {
-            setIsNear(false);
+        if (distance <= 23) {
+            Alert.alert("Inventory Nearby", "You found an inventory item!", [
+                {text: "OK"}
+            ])
+            refreshInventoryPosition()
         }
-    };
+    }
 
-    async function refreshInventoryPosition() {
+    function refreshInventoryPosition() {
         if (!devicePosition) return
 
         const offset = 0.001
@@ -78,7 +63,6 @@ export default function LocationHelper() {
     useEffect(() => {
         if (devicePosition && !inventoryPosition) {
             refreshInventoryPosition()
-                .then(r => console.log('Inventory position set', r))
         }
     }, [devicePosition])
 
@@ -87,10 +71,10 @@ export default function LocationHelper() {
             <View style={styles.container}>
                 <Text>Waiting for device location...</Text>
             </View>
-        );
+        )
     }
 
-    if (devicePosition) {
+    if (devicePosition && inventoryPosition) {
         return (
             <View style={styles.container}>
                 <MapView style={styles.map}
@@ -100,8 +84,21 @@ export default function LocationHelper() {
                              latitudeDelta: 0.005,
                              longitudeDelta: 0.005,
                          }}>
-                    <Circle center={{ latitude: devicePosition.coords.latitude, longitude: devicePosition.coords.longitude }} radius={5} fillColor="blue" />
-                    {inventoryPosition && <Circle center={{ latitude: inventoryPosition.latitude, longitude: inventoryPosition.longitude }} radius={5} fillColor="green" />}
+                    <Marker
+                        coordinate={{ latitude: inventoryPosition.latitude, longitude: inventoryPosition.longitude }}
+                        title={'Inventory Item'}
+                        description={'This is the item you are looking for!'}
+                    >
+                        <View>
+                            <Image source={require('./assets/categories/bird-01.jpg')} style={{ width: 40, height: 40 }} />
+                        </View>
+                    </Marker>
+                    <Marker
+                        coordinate={{latitude: devicePosition.coords.latitude, longitude: devicePosition.coords.longitude}}
+                    >
+                        <Image source={require('./assets/person.png')} style={{ width: 40, height: 40 }} />
+
+                    </Marker>
                 </MapView>
                 <Button title={'Refresh Inventory Position'} onPress={refreshInventoryPosition} />
             </View>
