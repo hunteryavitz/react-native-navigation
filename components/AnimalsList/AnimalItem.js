@@ -7,16 +7,17 @@ import {
     Platform
 } from 'react-native'
 import { useNavigation } from "@react-navigation/native"
-import AnimalDetails from "../AnimalDetails";
+import Ionicons from "react-native-vector-icons/Ionicons"
 
-function AnimalItem({ id, title, imageUrl, difficulty, duration, isRare, isGeneral, isUnlocked }) {
+function AnimalItem({ id, title, category, imageUrl, categoryImageUrl, commonality, isUnlocked }) {
     const navigation = useNavigation()
 
     function selectAnimalItemHandler() {
-
-        navigation.navigate('AnimalDetail', {
-            animalId: id,
-        })
+        if (isUnlocked) {
+            navigation.navigate('AnimalDetail', {
+                animalId: id,
+            })
+        }
     }
 
     return(
@@ -30,17 +31,31 @@ function AnimalItem({ id, title, imageUrl, difficulty, duration, isRare, isGener
                 <View style={styles.container}>
                     <View style={styles.imageContainer}>
                         <Image source={{uri: imageUrl}} style={styles.image} />
-                        <Text style={styles.title}>{title}</Text>
+                        <View style={styles.titlesMainContainer}>
+                            <View style={styles.commonStatus}>
+                                <Ionicons name="diamond" size={24} color={
+                                    commonality === 'Common' ? 'brown' : commonality === 'Uncommon' ? 'lightgrey' : 'yellow'
+                                } />
+                                <Text style={styles.commonality}>{commonality}</Text>
+                            </View>
+                            <View style={styles.titlesSubContainer}>
+                                <Text style={styles.title}>{title}</Text>
+                            </View>
+                            <View style={styles.category}>
+                                <Image style={styles.categoryImage} source={{uri: categoryImageUrl}} />
+                                <Text style={styles.categoryDescription}>{category}</Text>
+                            </View>
+                        </View>
                     </View>
                     <View>
-                        <Text style={styles.detailItem}>{isRare ? 'Rare' : 'Common'}</Text>
-                        <Text style={styles.detailItem}>{isGeneral ? 'General' : 'Specific'}</Text>
-                        <Text style={styles.detailItem}>{isUnlocked ? 'Unlocked' : 'Locked'}</Text>
                     </View>
-                    <AnimalDetails
-                        difficulty={difficulty}
-                        duration={duration}
-                    />
+                    {
+                        !isUnlocked &&
+                        <View style={styles.lockedScreen}>
+                            <Ionicons style={styles.lockedIcon} name="lock-closed" size={50} color="white" />
+                            <Text style={styles.lockedTitle}>LOCKED</Text>
+                        </View>
+                    }
                 </View>
             </Pressable>
         </View>
@@ -63,22 +78,78 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         overflow: 'hidden',
     },
+    lockedScreen: {
+        backgroundColor: 'rgba(0, 0, 0, 0.7)',
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        bottom: 0,
+        right: 0,
+    },
+    lockedIcon: {
+        marginTop: '35%',
+        textAlign: 'center',
+    },
+    lockedTitle: {
+        textAlign: 'center',
+        color: 'white',
+        fontSize: 20,
+    },
     imageContainer: {
         alignItems: 'center',
     },
     image: {
-        // resizeMode: 'center',
-        height: 240,
-        width: '80%',
+        height: 320,
+        width: '100%',
+    },
+    titlesMainContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        width: '100%',
+        paddingTop: 12,
+        paddingBottom: 6,
+        paddingLeft: 8,
+        paddingRight: 8,
+        backgroundColor: 'black',
+    },
+    commonStatus: {
+        flexDirection: 'column',
+        flex: 1,
+        alignItems: 'center',
+    },
+    commonality: {
+        fontSize: 10,
+        fontWeight: 'bold',
+        color: 'white',
+    },
+    titlesSubContainer: {
+        flex: 3,
+    },
+    title: {
+        fontSize: 14,
+        textAlign: 'center',
+        margin: 8,
+        color: 'white',
+    },
+    category: {
+        flexDirection: 'column',
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    categoryImage: {
+        height: 30,
+        width: 30,
+        borderRadius: 15,
+    },
+    categoryDescription: {
+        fontSize: 10,
+        fontWeight: 'bold',
+        color: 'white',
     },
     buttonPressed: {
         opacity: 0.6,
-    },
-    title: {
-        fontWeight: 'bold',
-        fontSize: 18,
-        textAlign: 'center',
-        margin: 8,
     },
     details: {
         flexDirection: 'row',

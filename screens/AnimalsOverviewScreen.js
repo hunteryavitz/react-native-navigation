@@ -12,7 +12,7 @@ function AnimalsOverviewScreen({ route, navigation }) {
     useLayoutEffect(() => {
         const categoryTitle = ANIMAL_CATEGORIES.find((category) => category.id === categoryId).title;
         navigation.setOptions({
-            title: `Animals for Category ${categoryTitle}`,
+            title: `${categoryTitle}`,
         })
     }, [categoryId, navigation])
 

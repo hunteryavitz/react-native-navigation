@@ -1,5 +1,5 @@
 import { FlatList, StyleSheet, View } from "react-native"
-import AnimalItem from "./AnimalItem";
+import AnimalItem from "./AnimalItem"
 
 function AnimalList({ animals }) {
 
@@ -8,29 +8,26 @@ function AnimalList({ animals }) {
 
         const animalItemProps = {
             id: item.id,
+            category: item.category,
             title: item.title,
             imageUrl: item.imageUrl,
-            difficulty: item.difficulty,
-            duration: item.duration,
-            inventory: item.inventory,
-            steps: item.steps,
-            isRare: item.isRare,
-            isGeneral: item.isGeneral,
+            categoryImageUrl: item.categoryImageUrl,
+            commonality: item.commonality,
             isUnlocked: item.isUnlocked,
         }
 
         return <AnimalItem {...animalItemProps} />
     }
 
-  return (
-      <View style={styles.container}>
-          <FlatList
-              data={animals}
-              keyExtractor={(item) => item.id}
-              renderItem={renderAnimalItem}
-          ></FlatList>
-      </View>
-  )
+    return (
+        <View style={styles.container}>
+            <FlatList
+                data={animals}
+                keyExtractor={(item) => item.id}
+                renderItem={renderAnimalItem}
+            ></FlatList>
+        </View>
+    )
 }
 
 const styles = StyleSheet.create({

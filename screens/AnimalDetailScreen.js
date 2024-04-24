@@ -1,16 +1,15 @@
 import { useLayoutEffect } from "react"
-import {Image, Text, View, StyleSheet, ScrollView} from 'react-native'
+import {Image, Text, View, StyleSheet, ScrollView, Button} from 'react-native'
 import { ANIMALS } from '../data/animal-data'
 import Subtitle from "../components/MealDetail/Subtitle"
-import List from "../components/AnimalDetail/List";
-import IconButton from "../components/IconButton";
-// import { FavoritesContext } from "../store/context/favorites-context"
+import List from "../components/AnimalDetail/List"
+import IconButton from "../components/IconButton"
 import {useDispatch, useSelector} from "react-redux"
 import { addFavorite, removeFavorite } from "../store/redux/favorites"
-import AnimalDetails from "../components/AnimalDetails";
+import AnimalDetails from "../components/AnimalDetails"
+import Ionicons from "react-native-vector-icons/Ionicons";
 
-function MealDetailScreen({ route, navigation }) {
-    // const favoriteMealsContext = useContext(FavoritesContext)
+function AnimalDetailScreen({ route, navigation }) {
     const favoriteAnimalIds = useSelector(state => state.favoriteAnimals.ids)
     const dispatch = useDispatch()
 
@@ -46,28 +45,45 @@ function MealDetailScreen({ route, navigation }) {
 
     return (
         <ScrollView style={ styles.root }>
-            <Image
-                style={ styles.image }
-                source={{ uri: selectedAnimal.imageUrl }} />
-            <Text style={ styles.title }>{selectedAnimal.title}</Text>
-            <View>
-                <Text>{selectedAnimal.isRare}</Text>
-                <Text>{selectedAnimal.isGeneral}</Text>
-                <Text>{selectedAnimal.isUnlocked}</Text>
+            <View style={styles.imageContainer}>
+                <Image
+                    style={ styles.image }
+                    source={{ uri: selectedAnimal.imageUrl }} />
+                <Text style={ styles.title }>{selectedAnimal.title}</Text>
+                <Text style={styles.description}>{selectedAnimal.description}</Text>
+                <Text style={styles.quote}>`"{selectedAnimal.quote}"`</Text>
             </View>
-            <AnimalDetails
-                difficulty={selectedAnimal.difficulty}
-                duration={selectedAnimal.duration}
-                textStyle={styles.detailText}
-            />
-            <View style={ styles.outerListContainer }>
+            <View style={styles.detailsContainer}>
+                <View style={styles.commonalityContainer}>
+                    <Ionicons name="diamond" size={30} color="black" />
+                    <Text>{selectedAnimal.commonality}</Text>
+                </View>
+
+                {selectedAnimal.commonality &&  (
+                    <View style={styles.generalContainer}>
+                        <Ionicons name="barbell" size={30} color="black" />
+                        <Text>Boss</Text>
+                    </View>
+                )}
+                <AnimalDetails
+                    difficulty={selectedAnimal.difficulty}
+                    duration={selectedAnimal.duration}
+                    textStyle={styles.detailText}
+                />
+            </View>
+
+            <View style={styles.buttonContainer}>
+                <Button title={'Begin'} onPress={() => console.log('begin')} />
+            </View>
+
+            {selectedAnimal.status === 'started' && <View style={ styles.outerListContainer }>
                 <View style={ styles.listContainer }>
+                    <Subtitle>Inventory</Subtitle>
+                    <List style={styles.inventoryItem} data={selectedAnimal.inventory} />
                     <Subtitle>Steps</Subtitle>
                     <List data={selectedAnimal.steps} />
-                    <Subtitle>Inventory</Subtitle>
-                    <List data={selectedAnimal.inventory} />
                 </View>
-            </View>
+            </View>}
         </ScrollView>
     )
 }
@@ -76,28 +92,63 @@ const styles = StyleSheet.create({
     root: {
         marginBottom: 16,
     },
+    imageContainer: {
+    },
     image: {
         width: '100%',
         height: 350,
+    },
+    detailsContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        margin: 6,
+    },
+    commonalityContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+    generalContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
     },
     title: {
         fontWeight: 'bold',
         fontSize: 24,
         margin: 6,
         textAlign: 'center',
-        color: '#121212'
+        color: 'black',
+    },
+    description: {
+        fontSize: 16,
+        margin: 6,
+        color: 'black',
+    },
+    quote: {
+        fontSize: 12,
+        fontWeight: 'bold',
+        margin: 6,
+        color: 'black',
+        textAlign: 'center',
     },
     detailText: {
-        color: 'green',
+        color: 'black',
+    },
+    buttonContainer: {
+        margin: 6,
+        alignItems: 'center',
     },
     listContainer: {
-        width: '90%',
+        // width: '90%',
+        // borderWidth: 1,
+    },
+    inventoryItem: {
+        backgroundColor: 'lightgrey',
     },
     outerListContainer: {
         alignItems: 'center',
-        margin: 6,
+        // margin: 6,
     },
 
 })
 
-export default MealDetailScreen
+export default AnimalDetailScreen

@@ -1,14 +1,20 @@
 import React, { useState, useEffect } from 'react'
-import {Platform, View, StyleSheet, Button, Text, Alert, Image} from 'react-native'
-import * as Device from 'expo-device'
+import {View, StyleSheet, Button, Text, Alert, Image} from 'react-native'
 import * as Location from 'expo-location'
 import MapView, { Marker } from 'react-native-maps'
 import { getDistance } from 'geolib'
+import {useDispatch} from "react-redux"
+import {ANIMALS} from "./data/animal-data";
+import {addCollected} from "./store/redux/collected";
 
 export default function LocationHelper() {
+    const dispatch = useDispatch()
+
     const [devicePosition, setDevicePosition] = useState(null);
     const [inventoryPosition, setInventoryPosition] = useState(null)
     const [errorMsg, setErrorMsg] = useState(null)
+    const [animal, setAnimal] = useState(null)
+    const [animalImage, setAnimalImage] = useState(null)
 
     useEffect(() => {
         let subscription
@@ -43,10 +49,11 @@ export default function LocationHelper() {
             { latitude: inventoryCoords.latitude, longitude: inventoryCoords.longitude }
         )
 
-        if (distance <= 23) {
-            Alert.alert("Inventory Nearby", "You found an inventory item!", [
+        if (distance <= 3) {
+            Alert.alert("Inventory Nearby", `You found ${animal.title}!`, [
                 {text: "OK"}
             ])
+            dispatch(addCollected({ id: animal.id }))
             refreshInventoryPosition()
         }
     }
@@ -57,6 +64,15 @@ export default function LocationHelper() {
         const offset = 0.001
         const randomLat = devicePosition.coords.latitude + (Math.random() - 0.5) * offset
         const randomLng = devicePosition.coords.longitude + (Math.random() - 0.5) * offset
+
+        const randomIndex = Math.floor(Math.random() * ANIMALS.length)
+        const randomAnimal = ANIMALS[randomIndex]
+        console.log(randomAnimal)
+        setAnimal(randomAnimal)
+
+        setAnimalImage(randomAnimal.categoryImageUrl)
+        console.log(animalImage)
+
         setInventoryPosition({ latitude: randomLat, longitude: randomLng })
     }
 
@@ -90,7 +106,7 @@ export default function LocationHelper() {
                         description={'This is the item you are looking for!'}
                     >
                         <View>
-                            <Image source={require('./assets/categories/bird-01.jpg')} style={{ width: 40, height: 40 }} />
+                            <Image source={{uri: animalImage}} style={styles.inventoryIcon} />
                         </View>
                     </Marker>
                     <Marker
@@ -119,5 +135,10 @@ const styles = StyleSheet.create({
     button: {
         width: '100%',
         height: '100%',
+    },
+    inventoryIcon: {
+        width: 40,
+        height: 40,
+        borderRadius: 20,
     }
 })

@@ -1,21 +1,21 @@
-import CategoriesScreen from "./screens/CategoriesScreen";
-import {StatusBar} from "react-native";
-import {NavigationContainer} from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { createDrawerNavigator } from "@react-navigation/drawer";
-import FavoritesScreen from "./screens/FavoritesScreen";
-import Ionicons from "react-native-vector-icons/Ionicons";
-// import FavoritesContextProvider from "./store/context/favorites-context";
+import CategoriesScreen from "./screens/CategoriesScreen"
+import {StatusBar} from "react-native"
+import {NavigationContainer} from "@react-navigation/native"
+import { createNativeStackNavigator } from "@react-navigation/native-stack"
+import { createDrawerNavigator } from "@react-navigation/drawer"
+import FavoritesScreen from "./screens/FavoritesScreen"
+import Ionicons from "react-native-vector-icons/Ionicons"
 import {Provider} from "react-redux"
 import {store} from "./store/redux/store"
-import AnimalDetailScreen from "./screens/AnimalDetailScreen";
-import AnimalsOverviewScreen from "./screens/AnimalsOverviewScreen";
-import MapScreen from "./screens/MapScreen";
-import InventoryMapScreen from "./screens/InventoryMapScreen";
-import LocationHelper from "./LocationHelper";
+import AnimalDetailScreen from "./screens/AnimalDetailScreen"
+import AnimalsOverviewScreen from "./screens/AnimalsOverviewScreen"
+import MapScreen from "./screens/MapScreen"
+import DevScreen from "./screens/DevScreen"
+import CollectedScreen from "./screens/CollectedScreen"
+import InventoryScreen from "./screens/InventoryScreen"
 
-const Stack = createNativeStackNavigator();
-const Drawer = createDrawerNavigator();
+const Stack = createNativeStackNavigator()
+const Drawer = createDrawerNavigator()
 
 function DrawerNavigator() {
     return <Drawer.Navigator
@@ -42,11 +42,12 @@ function DrawerNavigator() {
                 title: 'Animal Categories',
                 drawerIcon: ({ color, size }) => {
                     return (
-                        <Ionicons name="list" size={size} color={color} />
+                        <Ionicons name="apps" size={size} color={color} />
                     )
                 }
             }}
         />
+
         <Drawer.Screen
             name="Favorites"
             component={FavoritesScreen}
@@ -55,6 +56,31 @@ function DrawerNavigator() {
                 drawerIcon: ({ color, size }) => {
                     return (
                         <Ionicons name="star" size={size} color={color} />
+                    )
+                }
+            }}
+        />
+
+        <Drawer.Screen
+            name="Inventory"
+            component={InventoryScreen}
+            options={{
+                title: 'Inventory',
+                drawerIcon: ({ color, size }) => {
+                    return (
+                        <Ionicons name="grid" size={size} color={color} />
+                    )
+                }
+            }}
+        />
+        <Drawer.Screen
+            name="Collected"
+            component={CollectedScreen}
+            options={{
+                title: 'Collected',
+                drawerIcon: ({ color, size }) => {
+                    return (
+                        <Ionicons name="cube" size={size} color={color} />
                     )
                 }
             }}
@@ -69,23 +95,13 @@ function DrawerNavigator() {
                                 )
                             }
                         }} />
-        <Drawer.Screen name={'Inventory Map'}
-                        component={InventoryMapScreen}
+        <Drawer.Screen name={'Dev'}
+                        component={DevScreen}
                         options={{
-                            title: 'Inventory Map',
+                            title: 'Dev',
                             drawerIcon: ({ color, size }) => {
                                 return (
-                                    <Ionicons name="map" size={size} color={color} />
-                                )
-                            }
-                        }} />
-        <Drawer.Screen name={'Location Helper'}
-                        component={LocationHelper}
-                        options={{
-                            title: 'Location Helper',
-                            drawerIcon: ({ color, size }) => {
-                                return (
-                                    <Ionicons name="map" size={size} color={color} />
+                                    <Ionicons name="build" size={size} color={color} />
                                 )
                             }
                         }} />
@@ -130,8 +146,6 @@ export default function App() {
                   </Stack.Navigator>
               </NavigationContainer>
           </Provider>
-          {/*<FavoritesContextProvider>*/}
-          {/*</FavoritesContextProvider>*/}
       </>
   )
 }
