@@ -1,6 +1,8 @@
 import {View, Text, StyleSheet, Button} from 'react-native'
 import {useDispatch} from "react-redux"
 import {addAnimalDrop} from "../store/redux/drops";
+import {addItem} from "../store/redux/inventory";
+import {INVENTORY} from "../data/inventory-data";
 
 export default function DevScreen() {
     const dispatch = useDispatch()
@@ -12,6 +14,8 @@ export default function DevScreen() {
 
     function handleAddInventoryDrop() {
         console.log('adding inventory drop...')
+        const randomItem = 'i' + Math.floor(Math.random() * INVENTORY.length)
+        dispatch(addItem(randomItem))
 
     }
 
