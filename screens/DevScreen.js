@@ -1,5 +1,5 @@
 import {View, Text, StyleSheet, Button} from 'react-native'
-import {useDispatch} from "react-redux"
+import {useDispatch, useSelector} from "react-redux"
 import {addAnimalDrop} from "../store/redux/drops";
 import {addItem} from "../store/redux/inventory";
 import {INVENTORY} from "../data/inventory-data";
@@ -7,6 +7,7 @@ import {addXp} from "../store/redux/xp";
 
 export default function DevScreen() {
     const dispatch = useDispatch()
+    const xp = useSelector(state => state.xp.xp)
 
     function handleAddAnimalDrop() {
         console.log('adding animal drop...')
@@ -22,7 +23,7 @@ export default function DevScreen() {
 
     function addXP() {
         console.log('adding XP...')
-        dispatch(addXp(100))
+        dispatch(addXp(1))
         console.log('XP added!')
     }
 
@@ -40,6 +41,10 @@ export default function DevScreen() {
             <View style={styles.button}>
                 <Button title={'Add XP'} onPress={addXP} />
 
+            </View>
+
+            <View style={styles.info}>
+                <Text>XP: {xp}</Text>
             </View>
         </View>
     )

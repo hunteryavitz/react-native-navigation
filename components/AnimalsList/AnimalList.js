@@ -14,6 +14,7 @@ function AnimalList({ animals }) {
             categoryImageUrl: item.categoryImageUrl,
             commonality: item.commonality,
             isUnlocked: item.isUnlocked,
+            xp: item.xp,
         }
 
         return <AnimalItem {...animalItemProps} />
