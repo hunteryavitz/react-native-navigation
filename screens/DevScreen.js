@@ -3,6 +3,7 @@ import {useDispatch} from "react-redux"
 import {addAnimalDrop} from "../store/redux/drops";
 import {addItem} from "../store/redux/inventory";
 import {INVENTORY} from "../data/inventory-data";
+import {addXp} from "../store/redux/xp";
 
 export default function DevScreen() {
     const dispatch = useDispatch()
@@ -21,6 +22,8 @@ export default function DevScreen() {
 
     function addXP() {
         console.log('adding XP...')
+        dispatch(addXp(100))
+        console.log('XP added!')
     }
 
     return (
