@@ -8,23 +8,20 @@ import {addXp} from "../store/redux/xp";
 export default function DevScreen() {
     const dispatch = useDispatch()
     const xp = useSelector(state => state.xp.xp)
+    const drops = useSelector(state => state.drops.animalDrops)
 
     function handleAddAnimalDrop() {
-        console.log('adding animal drop...')
         dispatch(addAnimalDrop())
     }
 
     function handleAddInventoryDrop() {
-        console.log('adding inventory drop...')
         const randomItem = 'i' + Math.floor(Math.random() * INVENTORY.length)
         dispatch(addItem(randomItem))
 
     }
 
     function addXP() {
-        console.log('adding XP...')
         dispatch(addXp(1))
-        console.log('XP added!')
     }
 
     return (
@@ -45,6 +42,7 @@ export default function DevScreen() {
 
             <View style={styles.info}>
                 <Text>XP: {xp}</Text>
+                <Text>Drops: {drops}</Text>
             </View>
         </View>
     )

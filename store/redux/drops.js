@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit"
 const dropsSlice = createSlice({
     name: 'drops',
     initialState: {
-        animalDrops: 99,
+        animalDrops: 3,
     },
     reducers: {
         addAnimalDrop: (state) => {

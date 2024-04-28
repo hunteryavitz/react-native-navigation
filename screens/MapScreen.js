@@ -10,6 +10,7 @@ import {addCollected} from "../store/redux/collected";
 
 export default function MapScreen() {
     const animalDrops = useSelector(state => state.drops.animalDrops)
+    const collectedAnimals = useSelector(state => state.collectedAnimals.ids)
     const dispatch = useDispatch()
 
     const [devicePosition, setDevicePosition] = useState(null);
@@ -60,6 +61,10 @@ export default function MapScreen() {
         }
     }
 
+    function selectRandomNotCollectedAnimal() {
+
+    }
+
     function dropAnimal() {
         if (!devicePosition) return
 
@@ -67,14 +72,11 @@ export default function MapScreen() {
         const randomLat = devicePosition.coords.latitude + (Math.random() - 0.5) * offset
         const randomLng = devicePosition.coords.longitude + (Math.random() - 0.5) * offset
 
-        const randomIndex = Math.floor(Math.random() * ANIMALS.length)
-        const randomAnimal = ANIMALS[randomIndex]
-        console.log(randomAnimal)
+        const notCollectedAnimals = ANIMALS.filter((animal) => !collectedAnimals.includes(animal.id))
+        const randomAnimal = notCollectedAnimals[Math.floor(Math.random() * notCollectedAnimals.length)]
+
         setAnimal(randomAnimal)
-
         setAnimalImage(randomAnimal.categoryImageUrl)
-        console.log(animalImage)
-
         setInventoryPosition({ latitude: randomLat, longitude: randomLng })
 
         dispatch(removeAnimalDrop())
@@ -120,9 +122,12 @@ export default function MapScreen() {
 
                     </Marker>
                 </MapView>
-                <View style={styles.controls}>
-                    <Button title={'Drop Animal'} onPress={dropAnimal} />
-                    <Text style={styles.animalDrops}>{animalDrops}</Text>
+                <View>
+                    {animalDrops > 0 &&
+                        <View style={styles.controls}>
+                            <Button title={'Drop Animal'} onPress={dropAnimal} />
+                            <Text style={styles.animalDrops}>{animalDrops}</Text>
+                        </View>}
                 </View>
             </View>
         )

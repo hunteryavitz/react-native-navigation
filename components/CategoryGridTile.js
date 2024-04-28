@@ -5,8 +5,6 @@ const SCREEN_HEIGHT = Dimensions.get('window').height;
 
 function CategoryGridTile({title, icon, onPress}) {
 
-    console.log(icon)
-
     return (
         <View style={styles.gridItem}>
             <Pressable

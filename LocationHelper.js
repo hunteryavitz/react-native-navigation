@@ -67,12 +67,9 @@ export default function LocationHelper() {
 
         const randomIndex = Math.floor(Math.random() * ANIMALS.length)
         const randomAnimal = ANIMALS[randomIndex]
-        console.log(randomAnimal)
+
         setAnimal(randomAnimal)
-
         setAnimalImage(randomAnimal.categoryImageUrl)
-        console.log(animalImage)
-
         setInventoryPosition({ latitude: randomLat, longitude: randomLng })
     }
 

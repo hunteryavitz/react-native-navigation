@@ -75,13 +75,6 @@ function InventoryScreen() {
     const inventoryIds = useSelector(state => state.inventory.items)
     const inventoryItems = INVENTORY.filter(inventoryItem => inventoryIds.includes(inventoryItem.id))
 
-    // console.log('ids', inventoryIds)
-    // console.log('items', inventoryItems)
-
-    console.log('INVENTORY')
-    INVENTORY.forEach(item => console.log(item.id))
-    console.log('IDS')
-    inventoryIds.forEach(id => console.log(id))
     if (inventoryItems.length === 0 || !inventoryItems) {
         return (
             <View style={styles.screen}>

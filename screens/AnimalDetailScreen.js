@@ -19,10 +19,8 @@ function AnimalDetailScreen({ route, navigation }) {
 
     function toggleFavoriteHandler(animalId) {
         if (isFavorite) {
-            console.log('removing favorite')
             dispatch(removeFavorite({ id: animalId }))
         } else {
-            console.log('adding favorite')
             dispatch(addFavorite({ id: animalId }))
         }
     }

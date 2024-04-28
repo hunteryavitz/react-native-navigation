@@ -20,10 +20,8 @@ function MealDetailScreen({ route, navigation }) {
 
     function toggleFavoriteHandler(mealId) {
         if (isFavorite) {
-            console.log('removing favorite')
             dispatch(removeFavorite({ id: mealId }))
         } else {
-            console.log('adding favorite')
             dispatch(addFavorite({ id: mealId }))
         }
     }

@@ -8,7 +8,7 @@ import {
 } from 'react-native'
 import { useNavigation } from "@react-navigation/native"
 import Ionicons from "react-native-vector-icons/Ionicons"
-import {useSelector} from "react-redux";
+import {useSelector} from "react-redux"
 
 function AnimalItem({ id, title, category, imageUrl, categoryImageUrl, commonality, isUnlocked, xp }) {
     const navigation = useNavigation()
@@ -23,7 +23,6 @@ function AnimalItem({ id, title, category, imageUrl, categoryImageUrl, commonali
     }
 
     isUnlocked = currentXp >= xp
-    console.log('isUnlocked', isUnlocked)
 
     return(
             <View style={styles.animalItem}>

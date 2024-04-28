@@ -34,8 +34,6 @@ const InventoryMap = () => {
 
             await Geolocation.getCurrentPosition(info => console.log(info), error => console.log(error))
 
-
-
             //     success: (
             //     position: {
             //         coords: {

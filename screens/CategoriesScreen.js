@@ -7,7 +7,6 @@ function CategoriesScreen({ navigation }) {
 
     function renderCategoryItem(itemData) {
         function pressHandler() {
-            console.log('Category pressed');
             navigation.navigate('Animals', {
                 categoryId: itemData.item.id
             });
