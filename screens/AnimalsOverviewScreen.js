@@ -5,10 +5,10 @@ import {useSelector} from "react-redux"
 
 function AnimalsOverviewScreen({ route, navigation }) {
     const categoryId = route.params.categoryId
-    const collectedAnimals = useSelector(state => state.collectedAnimals.ids)
+    const capturedAnimals = useSelector(state => state.collectedAnimals.captured)
 
     const displayedAnimals = ANIMALS.filter((animalItem) => {
-        return (animalItem.categoryIds.indexOf(categoryId) >= 0 && collectedAnimals.includes(animalItem.id))
+        return (animalItem.categoryIds.indexOf(categoryId) >= 0 && capturedAnimals.includes(animalItem.id))
     })
 
     useLayoutEffect(() => {

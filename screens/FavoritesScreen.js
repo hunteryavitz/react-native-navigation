@@ -12,7 +12,7 @@ function FavoritesScreen() {
     if (favoriteAnimals.length === 0 || !favoriteAnimals) {
         return (
             <View style={styles.screen}>
-                <Text>No favorites!</Text>
+                <Text style={styles.text}>No favorites!</Text>
             </View>
         )
     }
@@ -29,6 +29,10 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
+    },
+    text: {
+        fontSize: 20,
+        color: '#fff'
     }
 })
 

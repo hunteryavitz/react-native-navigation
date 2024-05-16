@@ -139,18 +139,16 @@ export const ANIMALS = [
         'Easy',
         '1 Hour',
         [
-            'Apron',
-            'Chef Knife',
-            'Rice Roll',
-            'Fish',
-            'Garnish'
+           'i25',
+           'i23',
+           'i27',
+           'i24',
+           'i26',
         ],
         [
-            'Gather and wash ingredients.',
-            'Prepare fish.',
-            'Add garnish.',
-            'Roll and serve.',
-            'Get a 5-star rating.'
+            's1',
+            's2',
+            's3',
         ],
         'Common',
         false,
@@ -168,18 +166,16 @@ export const ANIMALS = [
         'Easy',
         '1 Hour',
         [
-            'Ball Cap',
-            'Whistle',
-            'Sunscreen',
-            'Clipboard',
-            'Water Bottle'
+            'i29',
+            'i30',
+            'i31',
+            'i32',
+            'i33'
         ],
         [
-            'Check clipboard.',
-            'Test water quality',
-            'Remind swimmers to walk.',
-            'Perform safety checks.',
-            'Make sure everybody has fun.',
+            's4',
+            's5',
+            's6',
         ],
         'Common',
         false,
@@ -197,18 +193,16 @@ export const ANIMALS = [
         'Easy',
         '1 Hour',
         [
-            'Headphones',
-            'Turntable',
-            'Mixer',
-            'Records',
-            'Microphone'
+            'i34',
+            'i35',
+            'i36',
+            'i37',
+            'i38'
         ],
         [
-            'Find a beat.',
-            'Start mixing.',
-            'Gather a crowd.',
-            'Get everybody dancing.',
-            'Drop the bass.'
+            's7',
+            's8',
+            's9',
         ],
         'Uncommon',
         false,
@@ -226,18 +220,16 @@ export const ANIMALS = [
         'Easy',
         '1 Hour',
         [
-            'Yoga Mat',
-            'Towel',
-            'Trickling Water',
-            'Incense',
-            'Peace Stone'
+            'i39',
+            'i40',
+            'i33',
+            'i41',
+            'i42'
         ],
         [
-            'Find a quiet place.',
-            'Start stretching.',
-            'Focus on your breathing.',
-            'Clear your mind',
-            'Find your inner peace.'
+            's10',
+            's11',
+            's12',
         ],
         'Common',
         false,
@@ -255,18 +247,16 @@ export const ANIMALS = [
         'Easy',
         '1 Hour',
         [
-            'Running Shoes',
-            'Sweatband',
-            'Baton',
-            'Stopwatch',
-            'Starter Pistol'
+            'i43',
+            'i44',
+            'i45',
+            'i46',
+            'i47'
         ],
         [
-            'Start stretching.',
-            'Warm up with a light jog.',
-            'Start running.',
-            'Outlast the competition.',
-            'Finish strong.'
+            's13',
+            's14',
+            's15',
         ],
         'Common',
         false,
@@ -284,18 +274,16 @@ export const ANIMALS = [
         'Easy',
         '1 Hour',
         [
-            'Toothbrush',
-            'Toothpaste',
-            'Floss',
-            'Mouthwash',
-            'Dental Tools'
+            'i48',
+            'i49',
+            'i50',
+            'i51',
+            'i52'
         ],
         [
-            'Check teeth.',
-            'Extract bad tooth.',
-            'Fill cavity',
-            'Clean teeth.',
-            'Give advice.',
+            's16',
+            's17',
+            's18',
         ],
         'Common',
         false,
@@ -313,18 +301,16 @@ export const ANIMALS = [
         'Easy',
         '1 Hour',
         [
-            'Flashlight 🔦',
-            'Walkie Talkie 📻',
-            'Security Badge 🪪',
-            'Alarm Code 🔢',
-            'Thermal Camera 📹'
+            'i53',
+            'i54',
+            'i55',
+            'i56',
+            'i57'
         ],
         [
-            'Check the exhibits.',
-            'Walk the perimeter.',
-            'Use the thermal camera.',
-            'Reset the alarm.',
-            'Make it until sunrise.'
+            's19',
+            's20',
+            's21',
         ],
         'Uncommon',
         true,
@@ -342,18 +328,16 @@ export const ANIMALS = [
         'Easy',
         '1 Hour',
         [
-            'Ice Cream Scoop',
-            'Waffle Cone',
-            'Sprinkles',
-            'Whipped Cream',
-            'Cherries'
+            'i58',
+            'i59',
+            'i60',
+            'i61',
+            'i62'
         ],
         [
-            'Choose a flavor.',
-            'Prepare the cone',
-            'Scoop the ice cream.',
-            'Add toppings.',
-            'Serve without spilling.'
+            's22',
+            's23',
+            's24',
         ],
         'Common',
         false,
@@ -371,18 +355,16 @@ export const ANIMALS = [
         'Easy',
         '1 Hour',
         [
-            'Paint',
-            'Brush',
-            'Canvas',
-            'Easel',
-            'Palette'
+            'i63',
+            'i64',
+            'i65',
+            'i66',
+            'i67'
         ],
         [
-            'Find a subject.',
-            'Find a scene',
-            'Set up your easel.',
-            'Start painting.',
-            'Bring the subject to life.'
+            's25',
+            's26',
+            's27',
         ],
         'Common',
         false,
@@ -400,18 +382,16 @@ export const ANIMALS = [
         'Easy',
         '1 Hour',
         [
-            'Mail Bag',
-            'Letters',
-            'Packages',
-            'Truck',
-            'Map'
+            'i68',
+            'i69',
+            'i70',
+            'i71',
+            'i72'
         ],
         [
-            'Sort the packages.',
-            'Sort the mail.',
-            'Load the truck.',
-            'Chart route on map.',
-            'Deliver everything.'
+            's28',
+            's29',
+            's30',
         ],
         'Common',
         false,

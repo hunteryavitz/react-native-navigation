@@ -6,11 +6,12 @@ import { getDistance } from 'geolib'
 import {useDispatch, useSelector} from "react-redux"
 import {ANIMALS} from "../data/animal-data";
 import {removeAnimalDrop} from "../store/redux/drops"
-import {addCollected} from "../store/redux/collected";
+import {addCaptured} from "../store/redux/collected";
 
 export default function MapScreen() {
     const animalDrops = useSelector(state => state.drops.animalDrops)
-    const collectedAnimals = useSelector(state => state.collectedAnimals.ids)
+    const capturedAnimals = useSelector(state => state.collectedAnimals.captured)
+    const collectedAnimals = useSelector(state => state.collectedAnimals.collected)
     const dispatch = useDispatch()
 
     const [devicePosition, setDevicePosition] = useState(null);
@@ -23,28 +24,30 @@ export default function MapScreen() {
         let subscription
 
         (async () => {
-            let { status } = await Location.requestForegroundPermissionsAsync()
+            const { status } = await Location.requestForegroundPermissionsAsync()
             if (status !== 'granted') {
                 await setErrorMsg('Permission to access location was denied: ' + status)
-                return
+                alert(errorMsg)
+            } else {
+                subscription = await Location.watchPositionAsync({
+                    accuracy: Location.Accuracy.BestForNavigation,
+                    timeInterval: 1000,
+                    distanceInterval: 1,
+                }, (newLocation) => {
+                    setDevicePosition(newLocation)
+                    if (inventoryPosition) {
+                        checkProximity(newLocation.coords, inventoryPosition)
+                    }
+                })
             }
 
-            subscription = await Location.watchPositionAsync({
-                accuracy: Location.Accuracy.BestForNavigation,
-                timeInterval: 500,
-                distanceInterval: 1,
-            }, (newLocation) => {
-                setDevicePosition(newLocation)
-                if (inventoryPosition) {
-                    checkProximity(newLocation.coords, inventoryPosition)
-                }
-            })
         })()
 
+        // TODO: check this is the correct way to unsubscribe
         return () => {
             subscription.remove()
         }
-    }, [inventoryPosition])
+    }, [inventoryPosition]) // TODO: check this is the right dependency
 
     const checkProximity = (deviceCoords, inventoryCoords) => {
         const distance = getDistance(
@@ -53,16 +56,27 @@ export default function MapScreen() {
         )
 
         if (distance <= 3) {
-            Alert.alert("Inventory Nearby", `You found ${animal.title}!`, [
+            Alert.alert("Creature Captured", `You ACTUALLY captured ${animal.title}!`, [
                 {text: "OK"}
             ])
-            dispatch(addCollected({ id: animal.id }))
-            // refreshInventoryPosition()
+            dispatch(addCaptured({ id: animal.id }))
+            setAnimal(null)
+            setAnimalImage(null)
+            setInventoryPosition(null)
         }
     }
 
-    function selectRandomNotCollectedAnimal() {
-
+    // TODO: start building out the dto
+    const captureAnimal = () => {
+        Alert.alert("Creature Captured", `You SIMULATED captured ${animal.title}!`, [
+            {text: "OK"}
+        ])
+        dispatch(addCaptured({ id: animal.id }))
+        setAnimal(null)
+        setAnimalImage(null)
+        setInventoryPosition(null)
+        console.log('Captured animal')
+        console.log(capturedAnimals)
     }
 
     function dropAnimal() {
@@ -72,7 +86,7 @@ export default function MapScreen() {
         const randomLat = devicePosition.coords.latitude + (Math.random() - 0.5) * offset
         const randomLng = devicePosition.coords.longitude + (Math.random() - 0.5) * offset
 
-        const notCollectedAnimals = ANIMALS.filter((animal) => !collectedAnimals.includes(animal.id))
+        const notCollectedAnimals = ANIMALS.filter((animal) => !capturedAnimals.includes(animal.id) && !collectedAnimals.includes(animal.id))
         const randomAnimal = notCollectedAnimals[Math.floor(Math.random() * notCollectedAnimals.length)]
 
         setAnimal(randomAnimal)
@@ -82,21 +96,15 @@ export default function MapScreen() {
         dispatch(removeAnimalDrop())
     }
 
-    useEffect(() => {
-        if (devicePosition && !inventoryPosition) {
-            dropAnimal()
-        }
-    }, [devicePosition])
-
     if (!devicePosition) {
         return (
             <View style={styles.container}>
-                <Text>Waiting for device location...</Text>
+                <Text style={styles.text}>Waiting for device location...</Text>
             </View>
         )
     }
 
-    if (devicePosition && inventoryPosition) {
+    if (devicePosition) {
         return (
             <View style={styles.container}>
                 <MapView style={styles.map}
@@ -106,7 +114,7 @@ export default function MapScreen() {
                              latitudeDelta: 0.005,
                              longitudeDelta: 0.005,
                          }}>
-                    <Marker
+                    {inventoryPosition && <Marker
                         coordinate={{ latitude: inventoryPosition.latitude, longitude: inventoryPosition.longitude }}
                         title={'Inventory Item'}
                         description={'This is the item you are looking for!'}
@@ -114,7 +122,7 @@ export default function MapScreen() {
                         <View>
                             <Image source={{uri: animalImage}} style={styles.inventoryIcon} />
                         </View>
-                    </Marker>
+                    </Marker>}
                     <Marker
                         coordinate={{latitude: devicePosition.coords.latitude, longitude: devicePosition.coords.longitude}}
                     >
@@ -127,6 +135,7 @@ export default function MapScreen() {
                         <View style={styles.controls}>
                             <Button title={'Drop Animal'} onPress={dropAnimal} />
                             <Text style={styles.animalDrops}>{animalDrops}</Text>
+                            <Button title={'Capture'} onPress={captureAnimal} />
                         </View>}
                 </View>
             </View>
@@ -161,5 +170,9 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         marginLeft: 10,
         color: 'white'
+    },
+    text: {
+        fontSize: 20,
+        color: '#fff'
     }
 })

@@ -3,7 +3,9 @@ import favoritesReducer from './favorites'
 import collectedReducer from './collected'
 import dropsReducer from './drops'
 import inventoryReducer from './inventory'
+import stepsReducer from './steps'
 import xpReducer from './xp'
+import adventureReducer from './adventure'
 
 export const store = configureStore({
     reducer: {
@@ -11,6 +13,8 @@ export const store = configureStore({
         collectedAnimals: collectedReducer,
         drops: dropsReducer,
         inventory: inventoryReducer,
-        xp: xpReducer
+        steps: stepsReducer,
+        xp: xpReducer,
+        adventure: adventureReducer
     }
 })

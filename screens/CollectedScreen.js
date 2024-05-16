@@ -4,13 +4,13 @@ import {useSelector} from "react-redux"
 import AnimalList from "../components/AnimalsList/AnimalList"
 
 function CollectedScreen() {
-    const collectedAnimalIds = useSelector(state => state.collectedAnimals.ids)
+    const collectedAnimalIds = useSelector(state => state.collectedAnimals.collected)
     const collectedAnimals = ANIMALS.filter(animal => collectedAnimalIds.includes(animal.id))
 
     if (collectedAnimals.length === 0 || !collectedAnimals) {
         return (
             <View style={styles.screen}>
-                <Text>None collected!</Text>
+                <Text style={styles.text}>None collected!</Text>
             </View>
         )
     }
@@ -27,6 +27,10 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
+    },
+    text: {
+        fontSize: 20,
+        color: '#fff'
     }
 })
 
