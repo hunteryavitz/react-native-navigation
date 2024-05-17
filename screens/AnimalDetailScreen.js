@@ -1,4 +1,5 @@
-import { useLayoutEffect,  } from "react"
+import {useLayoutEffect, useRef,} from "react"
+import LottieView from "lottie-react-native"
 import {Image, Text, View, StyleSheet, ScrollView, Button} from 'react-native'
 import { ANIMALS } from '../data/animal-data'
 import { INVENTORY } from "../data/inventory-data"
@@ -14,6 +15,10 @@ import {STEPS} from "../data/step-data";
 import {addCollected, removeCaptured} from "../store/redux/collected";
 
 function AnimalDetailScreen({ route, navigation }) {
+    const confettiRef = useRef(null)
+
+    // const MyComponent = () => { const confettiRef = useRef(null)}
+
     const dispatch = useDispatch()
 
     const favoriteAnimalIds = useSelector(state => state.favoriteAnimals.ids)
@@ -85,6 +90,8 @@ function AnimalDetailScreen({ route, navigation }) {
     })
 
     const claimAnimal = () => {
+        // confettiRef.current.play()
+
         console.log('claiming animal', animalId)
         dispatch(clearAdventure())
         dispatch(removeCaptured({id: animalId}))
@@ -202,28 +209,43 @@ function AnimalDetailScreen({ route, navigation }) {
                 />
             </View>
 
-            {(currentAdventure.adventure !== animalId && hasAllInventory) && <View style={styles.buttonContainer}>
-                <Button title={'Begin'} onPress={toggleAdventureHandler} />
-            </View>}
 
-            {(!isCollected && hasAllSteps) && <View style={styles.buttonContainer}>
-                <Button title={'Claim'} onPress={claimAnimal} />
-            </View>}
+            {!isCollected && <View style={styles.buttonContainer}>
 
-            <View style={styles.listContainer}>
-                <Subtitle>Inventory</Subtitle>
-                <List style={styles.inventoryItem} data={inventoryData} />
-            </View>
 
-            {currentAdventure.adventure === animalId && <View>
-                <View style={ styles.listContainer }>
-                    <Subtitle>Steps</Subtitle>
-                    <List data={maybeSteps} />
-                    {/*<Button title={'Give Up'} onPress={toggleAdventureHandler} />*/}
+                {(currentAdventure.adventure !== animalId && hasAllInventory) && <View style={styles.buttonContainer}>
+                    <Button title={'Begin'} onPress={toggleAdventureHandler} />
+                </View>}
+
+                {/*{(!isCollected && hasAllSteps) && <View style={styles.buttonContainer}>*/}
+                {/*    <Button title={'Claim'} onPress={claimAnimal} />*/}
+                {/*</View>}*/}
+
+                <View style={styles.listContainer}>
+                    <Subtitle>Inventory</Subtitle>
+                    <List style={styles.inventoryItem} data={inventoryData} />
                 </View>
-                {hasAllSteps && <Button title={'Complete Adventure'} onPress={toggleAdventureHandler} />}
+
+                {currentAdventure.adventure === animalId && <View>
+                    <View style={ styles.listContainer }>
+                        <Subtitle>Steps</Subtitle>
+                        <List data={maybeSteps} />
+                        {/*<Button title={'Give Up'} onPress={toggleAdventureHandler} />*/}
+                    </View>
+                    {hasAllSteps && <Button title={'Claim'} onPress={claimAnimal} />}
+                </View>}
+
             </View>}
+
+            {isCollected && <LottieView
+                ref={confettiRef}
+                style={styles.lottie}
+                source={require('../assets/confetti.json')}
+                autoPlay
+                loop
+            />}
         </ScrollView>
+
     )
 }
 
@@ -287,6 +309,17 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         // margin: 6,
     },
+    lottie: {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        width: '100%',
+        height: '100%',
+        // zIndex: 1000,
+        // pointerEvents: 'none',
+    }
 
 })
 

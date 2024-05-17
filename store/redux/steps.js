@@ -3,8 +3,8 @@ import { createSlice } from "@reduxjs/toolkit"
 const stepsSlice = createSlice({
     name: 'steps',
     initialState: {
-        started: ["s2"],
-        completed: ["s1"],
+        started: [],
+        completed: [],
     },
     reducers: {
         // add new step to inProgress
