@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit"
 const xpSlice = createSlice({
     name: 'xp',
     initialState: {
-        xp: 30
+        xp: 0
     },
     reducers: {
         addXp: (state, action) => {

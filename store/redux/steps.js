@@ -19,6 +19,9 @@ const stepsSlice = createSlice({
 
 
         updateStep: (state, action) => {
+            console.log('updating step', action.payload.id, action.payload.status)
+            console.log('started', state.started)
+            console.log('completed', state.completed)
             if (action.payload.status === 1) {
                 state.started = state.started.filter(step => step !== action.payload.id)
                 state.completed.push(action.payload.id)

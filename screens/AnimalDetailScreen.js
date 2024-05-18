@@ -142,7 +142,10 @@ function AnimalDetailScreen({ route, navigation }) {
     //
     // const assembledSteps = assembledStartedSteps.concat(assembledCompletedSteps).concat(assembledRemainingSteps)
 
-    const hasAllSteps = selectedAnimal.steps.length === stepsCompleted.length
+    // see if all selected animal steps are in steps completed
+    const hasAllSteps = selectedAnimal.steps.every(step => stepsCompleted.includes(step))
+
+    // const hasAllSteps = selectedAnimal.steps.length === stepsCompleted.length
 
     // const hasAllSteps = true
 

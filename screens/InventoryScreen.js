@@ -78,7 +78,11 @@ function InventoryScreen() {
     if (inventoryItems.length === 0 || !inventoryItems) {
         return (
             <View style={styles.screen}>
-                <Text>No inventory items!</Text>
+                <Text style={styles.title}>No inventory items!</Text>
+                <Text style={styles.title}></Text>
+                <Text style={styles.title}>  \(^_^)/</Text>
+                <Text style={styles.title}> (  )</Text>
+                <Text style={styles.title}>/ \</Text>
             </View>
         )
     }
@@ -103,7 +107,6 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        width: '90%',
         backgroundColor: 'black',
         borderColor: 'white',
         borderWidth: 1,
@@ -113,7 +116,7 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 24,
         fontWeight: 'bold',
-        color: 'white',
+        color: '#351401',
     },
 })
 

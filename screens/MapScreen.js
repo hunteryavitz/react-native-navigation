@@ -79,6 +79,8 @@ export default function MapScreen() {
         console.log(capturedAnimals)
     }
 
+    const notCollectedAnimals = ANIMALS.filter((animal) => !capturedAnimals.includes(animal.id) && !collectedAnimals.includes(animal.id))
+
     function dropAnimal() {
         if (!devicePosition) return
 
@@ -86,7 +88,6 @@ export default function MapScreen() {
         const randomLat = devicePosition.coords.latitude + (Math.random() - 0.5) * offset
         const randomLng = devicePosition.coords.longitude + (Math.random() - 0.5) * offset
 
-        const notCollectedAnimals = ANIMALS.filter((animal) => !capturedAnimals.includes(animal.id) && !collectedAnimals.includes(animal.id))
         const randomAnimal = notCollectedAnimals[Math.floor(Math.random() * notCollectedAnimals.length)]
 
         setAnimal(randomAnimal)
@@ -100,6 +101,14 @@ export default function MapScreen() {
         return (
             <View style={styles.container}>
                 <Text style={styles.text}>Waiting for device location...</Text>
+            </View>
+        )
+    }
+
+    if (notCollectedAnimals.length === 0) {
+        return (
+            <View style={styles.container}>
+                <Text style={styles.text}>Waiting for next animal drop...</Text>
             </View>
         )
     }

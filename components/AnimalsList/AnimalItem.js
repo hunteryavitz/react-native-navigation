@@ -59,6 +59,7 @@ function AnimalItem({ id, title, category, imageUrl, categoryImageUrl, commonali
                             <View style={styles.lockedScreen}>
                                 <Ionicons style={styles.lockedIcon} name="lock-closed" size={50} color="white" />
                                 <Text style={styles.lockedTitle}>LOCKED</Text>
+                                <Text style={styles.lockedSubtitle}>{currentXp} / {xp} XP</Text>
                             </View>
                         }
                     </View>
@@ -114,6 +115,11 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         color: 'white',
         fontSize: 20,
+    },
+    lockedSubtitle: {
+        textAlign: 'center',
+        color: 'white',
+        fontSize: 16,
     },
     imageContainer: {
         alignItems: 'center',
