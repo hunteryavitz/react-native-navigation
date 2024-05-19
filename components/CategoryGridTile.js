@@ -15,10 +15,10 @@ function CategoryGridTile({title, icon, onPress}) {
                 android_ripple={{color: '#CCC'}}
                 onPress={onPress}>
                 <View style={styles.gridContent}>
-                    <Image source={{uri: icon}} style={{width: 120, height: 120}} />
-                    <Text style={styles.title}>
-                        {title}
-                    </Text>
+                    <Image source={{uri: icon}} style={styles.image} />
+                    {/*<Text style={styles.title}>*/}
+                    {/*    {title}*/}
+                    {/*</Text>*/}
                 </View>
             </Pressable>
         </View>
@@ -29,11 +29,11 @@ function CategoryGridTile({title, icon, onPress}) {
 const styles = StyleSheet.create({
     gridItem: {
         // flex: 1,
-        margin: 15,
-        width: SCREEN_WIDTH / 2.5,
-        height: SCREEN_WIDTH / 2.5,
+        // margin: 15,
+        margin: 10,
+        height: 'auto',
         borderRadius: 10,
-        backgroundColor: 'white',
+        backgroundColor: 'rgba(0, 0, 0, 0.2)',
         elevation: 5,
         shadowColor: 'black',
         shadowOpacity: 0.26,
@@ -57,8 +57,16 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 18,
         fontWeight: 'bold',
-    }
-
+        color: '#351401',
+    },
+    image: {
+        borderWidth: 5,
+        borderColor: '#A1E3E3',
+        borderRadius: 10,
+        width: 240,
+        height: 240,
+        margin: 10,
+    },
 });
 
 export default CategoryGridTile;

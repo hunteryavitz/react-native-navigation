@@ -1,9 +1,9 @@
-import React from 'react';
-import { FlatList, View, StyleSheet } from 'react-native';
-import CategoryGridTile from "../components/CategoryGridTile";
-import {ANIMAL_CATEGORIES} from "../data/animal-data";
+import React from 'react'
+import {FlatList, View, StyleSheet, Image} from 'react-native'
+import CategoryGridTile from "../components/CategoryGridTile"
+import {ANIMAL_CATEGORIES} from "../data/animal-data"
 
-function CategoriesScreen({ navigation }) {
+function CategoriesScreen({navigation}) {
 
     function renderCategoryItem(itemData) {
         function pressHandler() {
@@ -12,30 +12,36 @@ function CategoriesScreen({ navigation }) {
             });
         }
 
-        return (
-            <CategoryGridTile title={itemData.item.title} icon={itemData.item.icon} onPress={pressHandler} />
-        );
+        return (<CategoryGridTile title={itemData.item.title} icon={itemData.item.icon} onPress={pressHandler}/>);
     }
 
-    return (
-        <View style={styles.screen}>
+    return (<View style={styles.screen}>
+        <Image source={require('../assets/geography.jpg')} style={styles.bg}/>
             <FlatList
+                style={styles.list}
                 data={ANIMAL_CATEGORIES}
                 keyExtractor={(item) => item.id}
                 renderItem={renderCategoryItem}
-                numColumns={2}
             />
-        </View>
-    );
+        </View>);
 }
 
 const styles = StyleSheet.create({
     screen: {
         flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#FFFFFF',
-    }
+        width: '100%',
+        justifyContent: 'center', alignItems: 'center', backgroundColor: '#E4BAA1',
+    },
+    bg: {
+        position: 'absolute',
+        width: '100%',
+        height: '100%',
+        opacity: 0.4,
+    },
+    list: {
+        flexDirection: 'column',
+        width: '100%',
+    },
 });
 
 

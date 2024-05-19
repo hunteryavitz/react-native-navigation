@@ -1,9 +1,9 @@
 import CategoriesScreen from "./screens/CategoriesScreen"
 import {StatusBar} from "react-native"
 import {NavigationContainer} from "@react-navigation/native"
-import { createNativeStackNavigator } from "@react-navigation/native-stack"
-import { createDrawerNavigator } from "@react-navigation/drawer"
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
+import {createNativeStackNavigator} from "@react-navigation/native-stack"
+import {createDrawerNavigator} from "@react-navigation/drawer"
+import {createBottomTabNavigator} from "@react-navigation/bottom-tabs"
 import FavoritesScreen from "./screens/FavoritesScreen"
 import Ionicons from "react-native-vector-icons/Ionicons"
 import {Provider} from "react-redux"
@@ -13,9 +13,9 @@ import AnimalsOverviewScreen from "./screens/AnimalsOverviewScreen"
 import MapScreen from "./screens/MapScreen"
 import DevScreen from "./screens/DevScreen"
 import CollectedScreen from "./screens/CollectedScreen"
-import CraftScreen from "./screens/inventory/CraftScreen";
-import SearchScreen from "./screens/inventory/SearchScreen";
-import StoreScreen from "./screens/inventory/StoreScreen";
+import CraftScreen from "./screens/inventory/CraftScreen"
+import SearchScreen from "./screens/inventory/SearchScreen"
+import StoreScreen from "./screens/inventory/StoreScreen"
 
 const Stack = createNativeStackNavigator()
 const Drawer = createDrawerNavigator()
@@ -41,10 +41,8 @@ function BottomTabNavigator() {
             name="Store"
             component={StoreScreen}
             options={{
-                tabBarIcon: ({ color, size }) => {
-                    return (
-                        <Ionicons name="grid" size={size} color={color} />
-                    )
+                tabBarIcon: ({color, size}) => {
+                    return (<Ionicons name="grid" size={size} color={color}/>)
                 }
             }}
         />
@@ -52,10 +50,8 @@ function BottomTabNavigator() {
             name="Craft"
             component={CraftScreen}
             options={{
-                tabBarIcon: ({ color, size }) => {
-                    return (
-                        <Ionicons name="hammer" size={size} color={color} />
-                    )
+                tabBarIcon: ({color, size}) => {
+                    return (<Ionicons name="hammer" size={size} color={color}/>)
                 },
             }}
         />
@@ -63,10 +59,8 @@ function BottomTabNavigator() {
             name="Search"
             component={SearchScreen}
             options={{
-                tabBarIcon: ({ color, size }) => {
-                    return (
-                        <Ionicons name="aperture" size={size} color={color} />
-                    )
+                tabBarIcon: ({color, size}) => {
+                    return (<Ionicons name="aperture" size={size} color={color}/>)
                 }
             }}
         />
@@ -95,11 +89,8 @@ function DrawerNavigator() {
             name="Categories"
             component={CategoriesScreen}
             options={{
-                title: 'Animal Categories',
-                drawerIcon: ({ color, size }) => {
-                    return (
-                        <Ionicons name="apps" size={size} color={color} />
-                    )
+                title: 'Animal Categories', drawerIcon: ({color, size}) => {
+                    return (<Ionicons name="apps" size={size} color={color}/>)
                 }
             }}
         />
@@ -108,11 +99,8 @@ function DrawerNavigator() {
             name="Favorites"
             component={FavoritesScreen}
             options={{
-                title: 'Favorites',
-                drawerIcon: ({ color, size }) => {
-                    return (
-                        <Ionicons name="star" size={size} color={color} />
-                    )
+                title: 'Favorites', drawerIcon: ({color, size}) => {
+                    return (<Ionicons name="star" size={size} color={color}/>)
                 }
             }}
         />
@@ -121,11 +109,8 @@ function DrawerNavigator() {
             name="Inventory"
             component={BottomTabNavigator}
             options={{
-                title: 'Inventory',
-                drawerIcon: ({ color, size }) => {
-                    return (
-                        <Ionicons name="grid" size={size} color={color} />
-                    )
+                title: 'Inventory', drawerIcon: ({color, size}) => {
+                    return (<Ionicons name="grid" size={size} color={color}/>)
                 }
             }}
         />
@@ -134,75 +119,61 @@ function DrawerNavigator() {
             name="Collected"
             component={CollectedScreen}
             options={{
-                title: 'Collected',
-                drawerIcon: ({ color, size }) => {
-                    return (
-                        <Ionicons name="cube" size={size} color={color} />
-                    )
+                title: 'Collected', drawerIcon: ({color, size}) => {
+                    return (<Ionicons name="cube" size={size} color={color}/>)
                 }
             }}
         />
         <Drawer.Screen name={'Map'}
-                        component={MapScreen}
-                        options={{
-                            title: 'Map',
-                            drawerIcon: ({ color, size }) => {
-                                return (
-                                    <Ionicons name="map" size={size} color={color} />
-                                )
-                            }
-                        }} />
+                       component={MapScreen}
+                       options={{
+                           title: 'Map', drawerIcon: ({color, size}) => {
+                               return (<Ionicons name="map" size={size} color={color}/>)
+                           }
+                       }}/>
         <Drawer.Screen name={'Dev'}
-                        component={DevScreen}
-                        options={{
-                            title: 'Dev',
-                            drawerIcon: ({ color, size }) => {
-                                return (
-                                    <Ionicons name="build" size={size} color={color} />
-                                )
-                            }
-                        }} />
+                       component={DevScreen}
+                       options={{
+                           title: 'Dev', drawerIcon: ({color, size}) => {
+                               return (<Ionicons name="build" size={size} color={color}/>)
+                           }
+                       }}/>
     </Drawer.Navigator>
 }
 
 export default function App() {
-  return (
-      <>
-          <StatusBar barStyle="light-content" />
-          <Provider store={store}>
-              <NavigationContainer>
-                  <Stack.Navigator
-                      screenOptions={{
-                          headerStyle: {
-                              backgroundColor: '#FFFFFF',
-                          },
-                          headerTintColor: '#000000',
-                          headerTitleStyle: {
-                              fontWeight: 'bold',
-                          },
-                          contentStyle: {
-                              backgroundColor: '#FFFFFF',
-                          },
-                      }}>
-                      <Stack.Screen
-                          name="All Categories"
-                          component={DrawerNavigator}
-                          options={{headerShown: false}}
-                      />
-                      <Stack.Screen
-                          name="Animals"
-                          component={AnimalsOverviewScreen}
-                      />
-                      <Stack.Screen
-                          name="AnimalDetail"
-                          component={AnimalDetailScreen}
-                          options={{
-                              title: 'Animal Details',
-                          }}
-                      />
-                  </Stack.Navigator>
-              </NavigationContainer>
-          </Provider>
-      </>
-  )
+    return (<>
+            <StatusBar barStyle="light-content"/>
+            <Provider store={store}>
+                <NavigationContainer>
+                    <Stack.Navigator
+                        screenOptions={{
+                            headerStyle: {
+                                backgroundColor: '#351401',
+                            }, headerTintColor: '#E4BAA1', headerTitleStyle: {
+                                fontWeight: 'bold',
+                            }, contentStyle: {
+                                backgroundColor: '#E4BAA1',
+                            },
+                        }}>
+                        <Stack.Screen
+                            name="All Categories"
+                            component={DrawerNavigator}
+                            options={{headerShown: false}}
+                        />
+                        <Stack.Screen
+                            name="Animals"
+                            component={AnimalsOverviewScreen}
+                        />
+                        <Stack.Screen
+                            name="AnimalDetail"
+                            component={AnimalDetailScreen}
+                            options={{
+                                title: 'Animal Details',
+                            }}
+                        />
+                    </Stack.Navigator>
+                </NavigationContainer>
+            </Provider>
+        </>)
 }
