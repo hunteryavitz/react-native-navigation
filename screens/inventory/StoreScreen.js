@@ -1,27 +1,27 @@
 import {Text, View, StyleSheet, TouchableOpacity} from "react-native"
-import {useDispatch, useSelector} from "react-redux"
+import {useSelector} from "react-redux"
 import {INVENTORY} from "../../data/inventory-data"
-import {addItem} from "../../store/redux/inventory"
-import Ionicons from "react-native-vector-icons/Ionicons"
+// import {addItem} from "../../store/redux/inventory"
+import Ionicons from "react-native-vector-icons/Ionicons";
+import InventoryList from "../../components/Inventory/InventoryList";
 
-function SearchScreen() {
+function StoreScreen() {
     const currentInventoryIds = useSelector(state => state.inventory.items)
-    const dispatch = useDispatch()
+    // const dispatch = useDispatch()
 
-    const availableItems = INVENTORY.filter(inventoryItem => !currentInventoryIds.includes(inventoryItem.id))
+    const availableItems = INVENTORY.filter(inventoryItem => currentInventoryIds.includes(inventoryItem.id))
 
-    function handleSearchInventory() {
+    function handleStoreInventory() {
         const randomItem = availableItems[Math.floor(Math.random() * availableItems.length)]
-        alert('Searched ' + randomItem.description + randomItem.title)
-
-        dispatch(addItem(randomItem.id))
+        alert('Stored ' + randomItem.description + randomItem.title)
+        // dispatch(addItem(randomItem.id))
     }
 
     if (availableItems.length === 0 || !availableItems) {
         return (
             <View style={styles.screenEmpty}>
                 <Text style={styles.title}></Text>
-                <Text style={styles.subtitle}>nothing to search</Text>
+                <Text style={styles.subtitle}>nothing to store</Text>
                 <Text style={styles.title}>\(^_^)/</Text>
             </View>
         )
@@ -31,20 +31,19 @@ function SearchScreen() {
         <View style={styles.screen}>
             <View style={styles.titles}>
                 <View style={styles.mainTitleRow}>
-                    <Text style={styles.title}>Search</Text>
+                    <Text style={styles.title}>Store</Text>
                     <View style={styles.titleIcon}>
-                        <Ionicons name="aperture" size={32} color="#351401" />
+                        <Ionicons name="grid" size={32} color="#351401" />
                     </View>
                 </View>
-                <Text style={styles.subtitle}>Search for new items to add inventory.</Text>
+                <Text style={styles.subtitle}>Browse your inventory for items to store.</Text>
             </View>
             <View style={styles.container}>
                 <View style={styles.content}>
-                    <Text style={styles.contentText}>coming soon... search</Text>
-
+                    <InventoryList inventoryItems={availableItems} />
                 </View>
-                <TouchableOpacity style={styles.control} onPress={handleSearchInventory}>
-                    <Text style={styles.controlText}>SEARCH <Ionicons name="aperture" size={16} color="#E4BAA1" /></Text>
+                <TouchableOpacity style={styles.control} onPress={handleStoreInventory}>
+                    <Text style={styles.controlText}>STORE <Ionicons name="grid" size={16} color="#E4BAA1" /></Text>
                 </TouchableOpacity>
             </View>
         </View>
@@ -105,7 +104,7 @@ const styles = StyleSheet.create({
     content: {
         flex: 1,
         justifyContent: 'center',
-        alignItems: 'center',
+        alignItems: 'stretch',
         backgroundColor: '#351401',
         borderWidth: 1,
         borderRadius: 10,
@@ -126,6 +125,8 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         borderColor: '#000',
         padding: 8,
+        // width: '100%',
+        // alignItems: 'center',
     },
     controlText: {
         fontSize: 22,
@@ -134,4 +135,4 @@ const styles = StyleSheet.create({
     },
 })
 
-export default SearchScreen
+export default StoreScreen

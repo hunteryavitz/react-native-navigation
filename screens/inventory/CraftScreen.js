@@ -1,8 +1,8 @@
-import {Text, View, StyleSheet, Button, TouchableOpacity} from "react-native"
+import {Text, View, StyleSheet, TouchableOpacity} from "react-native"
 import {useDispatch, useSelector} from "react-redux"
 import {INVENTORY} from "../../data/inventory-data"
 import {addItem} from "../../store/redux/inventory"
-import Ionicons from "react-native-vector-icons/Ionicons";
+import Ionicons from "react-native-vector-icons/Ionicons"
 
 function CraftScreen() {
     const currentInventoryIds = useSelector(state => state.inventory.items)
@@ -12,17 +12,16 @@ function CraftScreen() {
 
     function handleCraftInventory() {
         const randomItem = availableItems[Math.floor(Math.random() * availableItems.length)]
+        alert('Crafted ' + randomItem.description + randomItem.title)
         dispatch(addItem(randomItem.id))
     }
 
     if (availableItems.length === 0 || !availableItems) {
         return (
-            <View style={styles.screen}>
-                <Text style={styles.title}>Nothing to craft</Text>
+            <View style={styles.screenEmpty}>
                 <Text style={styles.title}></Text>
-                <Text style={styles.title}>  \(^_^)/</Text>
-                <Text style={styles.title}> (  )</Text>
-                <Text style={styles.title}>/ \</Text>
+                <Text style={styles.subtitle}>nothing to craft</Text>
+                <Text style={styles.title}>\(^_^)/</Text>
             </View>
         )
     }
@@ -40,10 +39,10 @@ function CraftScreen() {
             </View>
             <View style={styles.container}>
                 <View style={styles.content}>
-                    <Text style={styles.contentText}>coming soon... crafting</Text>
+                    <Text style={styles.contentText}>coming soon... craft</Text>
                 </View>
                 <TouchableOpacity style={styles.control} onPress={handleCraftInventory}>
-                    <Text style={styles.controlText}>CRAFT <Ionicons name="hammer" size={18} color="#E4BAA1" /></Text>
+                    <Text style={styles.controlText}>CRAFT <Ionicons name="hammer" size={16} color="#E4BAA1" /></Text>
                 </TouchableOpacity>
             </View>
         </View>
@@ -57,6 +56,13 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: '#E4BAA1',
     },
+    screenEmpty: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: '100%',
+        backgroundColor: '#E4BAA1',
+        padding: 24,
+    },
     titles: {
         justifyContent: 'center',
         alignItems: 'flex-start',
@@ -66,8 +72,6 @@ const styles = StyleSheet.create({
     },
     mainTitleRow: {
         flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'space-between',
     },
     title: {
         flex: 1,
@@ -76,6 +80,7 @@ const styles = StyleSheet.create({
         color: '#351401',
     },
     titleIcon: {
+        justifyContent: 'center',
         borderWidth: 1,
         borderRadius: 10,
         borderColor: '#351401',
@@ -108,9 +113,9 @@ const styles = StyleSheet.create({
         padding: 4,
     },
     contentText: {
-        fontSize: 28,
+        fontSize: 24,
         fontWeight: 'light',
-        color: '#FFF',
+        color: '#A1E3E3',
     },
     control: {
         margin: 4,

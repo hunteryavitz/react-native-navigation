@@ -65,7 +65,7 @@ const EMOJIS = [
 
 ]
 
-function InventoryScreen() {
+function _InventoryScreen() {
     // const categoryId = route.params.categoryId;
     //
     // const displayedInventory = INVENTORY.filter((inventoryItem) => {
@@ -120,4 +120,4 @@ const styles = StyleSheet.create({
     },
 })
 
-export default InventoryScreen
+export default _InventoryScreen

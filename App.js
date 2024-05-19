@@ -13,9 +13,9 @@ import AnimalsOverviewScreen from "./screens/AnimalsOverviewScreen"
 import MapScreen from "./screens/MapScreen"
 import DevScreen from "./screens/DevScreen"
 import CollectedScreen from "./screens/CollectedScreen"
-import InventoryScreen from "./screens/InventoryScreen"
 import CraftScreen from "./screens/inventory/CraftScreen";
 import SearchScreen from "./screens/inventory/SearchScreen";
+import StoreScreen from "./screens/inventory/StoreScreen";
 
 const Stack = createNativeStackNavigator()
 const Drawer = createDrawerNavigator()
@@ -27,19 +27,19 @@ function BottomTabNavigator() {
         screenOptions={{
             headerShown: false,
             sceneContainerStyle: {
-                backgroundColor: '#3F2F25',
+                backgroundColor: '#351401',
             },
             tabBarStyle: {
                 backgroundColor: '#351401',
             },
-            tabBarInactiveTintColor: '#FFFFFF',
+            tabBarInactiveTintColor: '#A1E3E3',
             tabBarActiveTintColor: '#351401',
             tabBarActiveBackgroundColor: '#E4BAA1',
         }}
     >
         <Tab.Screen
-            name="Inventory.Tab"
-            component={InventoryScreen}
+            name="Store"
+            component={StoreScreen}
             options={{
                 tabBarIcon: ({ color, size }) => {
                     return (
@@ -79,14 +79,14 @@ function DrawerNavigator() {
             headerStyle: {
                 backgroundColor: '#351401',
             },
-            headerTintColor: '#FFFFFF',
+            headerTintColor: '#E4BAA1',
             sceneContainerStyle: {
                 backgroundColor: '#3F2F25',
             },
             drawerContentStyle: {
                 backgroundColor: '#351401',
             },
-            drawerInactiveTintColor: '#FFFFFF',
+            drawerInactiveTintColor: '#A1E3E3',
             drawerActiveTintColor: '#351401',
             drawerActiveBackgroundColor: '#E4BAA1',
         }}
@@ -118,7 +118,7 @@ function DrawerNavigator() {
         />
 
         <Drawer.Screen
-            name="Inventory.Nav"
+            name="Inventory"
             component={BottomTabNavigator}
             options={{
                 title: 'Inventory',

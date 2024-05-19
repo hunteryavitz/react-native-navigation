@@ -5,7 +5,6 @@ function InventoryItem({ id, title, description, imageUrl }) {
         <View style={styles.inventoryItem}>
             <Text style={styles.image}>{title}</Text>
             <View style={styles.details}>
-                <Text style={styles.title}>{id}</Text>
                 <Text style={styles.description}>{description}</Text>
             </View>
         </View>
@@ -16,16 +15,16 @@ const styles = StyleSheet.create({
     inventoryItem: {
         flexDirection: 'row',
         padding: 15,
-        backgroundColor: 'black',
+        // backgroundColor: 'rgba(0, 0, 0, 0.2)',
         borderBottomWidth: 1,
-        borderBottomColor: '#ccc',
+        borderBottomColor: '#E4BAA1',
     },
     image: {
         width: 76,
         height: 76,
         borderRadius: 38,
-        backgroundColor: '#222222',
-        borderColor: 'blue',
+        backgroundColor: '#000',
+        borderColor: '#E4BAA1',
         borderWidth: 2,
         fontSize: 42,
     },
@@ -34,12 +33,8 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         width: '60%',
     },
-    title: {
-        color: 'black',
-        fontSize: 18,
-    },
     description: {
-        color: '#888',
+        color: '#A1E3E3',
         fontSize: 24,
     },
 })
