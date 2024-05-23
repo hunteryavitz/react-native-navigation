@@ -4,11 +4,30 @@ import {addAnimalDrop} from "../store/redux/drops";
 import {addItem} from "../store/redux/inventory";
 import {INVENTORY} from "../data/inventory-data";
 import {addXp} from "../store/redux/xp";
+// import { useCountdown } from "react-native-countdown-circle-timer";
+import CountdownCircleDemo from "../components/CountdownCircleDemo";
+import {useState} from "react";
 
 export default function DevScreen() {
     const dispatch = useDispatch()
     const xp = useSelector(state => state.xp.xp)
     const drops = useSelector(state => state.drops.animalDrops)
+    const countdownReset = useState(0)
+
+    // const {
+    //     path,
+    //     pathLength,
+    //     stroke,
+    //     strokeDashoffset,
+    //     remainingTime,
+    //     elapsedTime,
+    //     size,
+    //     strokeWidth,
+    // } = useCountdown({
+    //     isPlaying: true,
+    //     duration: 7,
+    //     colors: '#abc'
+    // });
 
     function handleAddAnimalDrop() {
         dispatch(addAnimalDrop())
@@ -24,9 +43,26 @@ export default function DevScreen() {
         dispatch(addXp(1))
     }
 
+    function resetTimer() {
+        countdownReset[1](countdownReset[0] + 1)
+    }
+
     return (
         <View style={styles.container}>
+
             <Text style={styles.title}>Dev Screen</Text>
+
+            <CountdownCircleDemo
+                key={countdownReset}
+                isPlaying
+                duration={7}
+                colors={['#004777', '#F7B801', '#A30000', '#A30000']}
+                onCompleted={() => {
+                    console.log('Timer completed')
+                    return { shouldRepeat: true, duration: 10, delay: 1.5 }
+                }}
+            />
+
             <View style={styles.button}>
                 <Button title={'Add Animal Drop'} onPress={handleAddAnimalDrop} />
 
@@ -37,6 +73,11 @@ export default function DevScreen() {
             </View>
             <View style={styles.button}>
                 <Button title={'Add XP'} onPress={addXP} />
+
+            </View>
+
+            <View style={styles.button}>
+                <Button title={'Reset Timer'} onPress={resetTimer} />
 
             </View>
 
