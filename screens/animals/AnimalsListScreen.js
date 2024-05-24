@@ -1,26 +1,30 @@
 import {Text, View, StyleSheet, TouchableOpacity} from "react-native"
-import {useDispatch, useSelector} from "react-redux"
-import {INVENTORY} from "../../data/inventory-data"
-import {addItem} from "../../store/redux/inventory"
+import {useSelector} from "react-redux"
 import Ionicons from "react-native-vector-icons/Ionicons"
+import {ANIMAL_CATEGORIES, ANIMALS} from "../../data/animal-data"
+import {useLayoutEffect} from "react"
+import AnimalList from "../../components/AnimalsList/AnimalList"
 
-function CraftScreen() {
-    const currentInventoryIds = useSelector(state => state.inventory.items)
-    const dispatch = useDispatch()
+function AnimalsListScreen({ route, navigation }) {
+    const categoryId = route.params.categoryId
+    const capturedAnimals = useSelector(state => state.collectedAnimals.captured)
 
-    const availableItems = INVENTORY.filter(inventoryItem => !currentInventoryIds.includes(inventoryItem.id))
+    const displayedAnimals = ANIMALS.filter((animalItem) => {
+        return (animalItem.categoryIds.indexOf(categoryId) >= 0 && capturedAnimals.includes(animalItem.id))
+    })
 
-    function handleCraftInventory() {
-        const randomItem = availableItems[Math.floor(Math.random() * availableItems.length)]
-        alert('Crafted ' + randomItem.description + randomItem.title)
-        dispatch(addItem(randomItem.id))
-    }
+    useLayoutEffect(() => {
+        const categoryTitle = ANIMAL_CATEGORIES.find((category) => category.id === categoryId).title
+        navigation.setOptions({
+            title: `${categoryTitle}`,
+        })
+    }, [categoryId, navigation])
 
-    if (availableItems.length === 0 || !availableItems) {
+    if (displayedAnimals.length === 0 || !displayedAnimals) {
         return (
             <View style={styles.screenEmpty}>
                 <Text style={styles.title}></Text>
-                <Text style={styles.subtitle}>nothing to craft</Text>
+                <Text style={styles.subtitle}>nothing to list</Text>
                 <Text style={styles.title}>\(^_^)/</Text>
             </View>
         )
@@ -39,15 +43,14 @@ function CraftScreen() {
             </View>
             <View style={styles.container}>
                 <View style={styles.content}>
-                    <Text style={styles.contentText}>coming soon... craft</Text>
+                    <AnimalList animals={displayedAnimals} />
                 </View>
                 <TouchableOpacity style={styles.control} onPress={handleCraftInventory}>
                     <Text style={styles.controlText}>CRAFT <Ionicons name="hammer" size={16} color="#E4BAA1" /></Text>
                 </TouchableOpacity>
             </View>
         </View>
-    )
-}
+    )}
 
 const styles = StyleSheet.create({
     screen: {
@@ -132,4 +135,4 @@ const styles = StyleSheet.create({
     },
 })
 
-export default CraftScreen
+export default AnimalsListScreen

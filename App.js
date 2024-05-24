@@ -13,16 +13,19 @@ import AnimalsOverviewScreen from "./screens/AnimalsOverviewScreen"
 import MapScreen from "./screens/MapScreen"
 import DevScreen from "./screens/DevScreen"
 import CollectedScreen from "./screens/CollectedScreen"
-import CraftScreen from "./screens/inventory/CraftScreen"
-import SearchScreen from "./screens/inventory/SearchScreen"
-import StoreScreen from "./screens/inventory/StoreScreen"
+import InventorySearchScreen from "./screens/inventory/InventorySearchScreen"
+import InventoryStoreScreen from "./screens/inventory/InventoryStoreScreen"
+import InventoryCraftScreen from "./screens/inventory/InventoryCraftScreen";
+import AnimalsSearchScreen from "./screens/animals/AnimalsSearchScreen";
+import AnimalsListScreen from "./screens/animals/AnimalsListScreen";
+import AnimalsCollectScreen from "./screens/animals/AnimalsCollectScreen";
 
 const Stack = createNativeStackNavigator()
 const Drawer = createDrawerNavigator()
 
 const Tab = createBottomTabNavigator()
 
-function BottomTabNavigator() {
+function AnimalBottomTabNavigator() {
     return <Tab.Navigator
         screenOptions={{
             headerShown: false,
@@ -39,7 +42,52 @@ function BottomTabNavigator() {
     >
         <Tab.Screen
             name="Store"
-            component={StoreScreen}
+            component={AnimalsCollectScreen}
+            options={{
+                tabBarIcon: ({color, size}) => {
+                    return (<Ionicons name="layers-outline" size={size} color={color}/>)
+                }
+            }}
+        />
+        <Tab.Screen
+            name="Craft"
+            component={AnimalsListScreen}
+            options={{
+                tabBarIcon: ({color, size}) => {
+                    return (<Ionicons name="list-outline" size={size} color={color}/>)
+                },
+            }}
+        />
+        <Tab.Screen
+            name="Search"
+            component={AnimalsSearchScreen}
+            options={{
+                tabBarIcon: ({color, size}) => {
+                    return (<Ionicons name="map-outline" size={size} color={color}/>)
+                }
+            }}
+        />
+    </Tab.Navigator>
+}
+
+function InventoryBottomTabNavigator() {
+    return <Tab.Navigator
+        screenOptions={{
+            headerShown: false,
+            sceneContainerStyle: {
+                backgroundColor: '#351401',
+            },
+            tabBarStyle: {
+                backgroundColor: '#351401',
+            },
+            tabBarInactiveTintColor: '#A1E3E3',
+            tabBarActiveTintColor: '#351401',
+            tabBarActiveBackgroundColor: '#E4BAA1',
+        }}
+    >
+        <Tab.Screen
+            name="Store"
+            component={CollectScreen}
             options={{
                 tabBarIcon: ({color, size}) => {
                     return (<Ionicons name="grid" size={size} color={color}/>)
@@ -48,7 +96,7 @@ function BottomTabNavigator() {
         />
         <Tab.Screen
             name="Craft"
-            component={CraftScreen}
+            component={ListScreen}
             options={{
                 tabBarIcon: ({color, size}) => {
                     return (<Ionicons name="hammer" size={size} color={color}/>)
@@ -57,7 +105,7 @@ function BottomTabNavigator() {
         />
         <Tab.Screen
             name="Search"
-            component={SearchScreen}
+            component={InventorySearchScreen}
             options={{
                 tabBarIcon: ({color, size}) => {
                     return (<Ionicons name="aperture" size={size} color={color}/>)
@@ -106,8 +154,18 @@ function DrawerNavigator() {
         />
 
         <Drawer.Screen
+            name="Animals"
+            component={AnimalBottomTabNavigator}
+            options={{
+                title: 'Animals', drawerIcon: ({color, size}) => {
+                    return (<Ionicons name="paw-outline" size={size} color={color}/>)
+                }
+            }}
+        />
+
+        <Drawer.Screen
             name="Inventory"
-            component={BottomTabNavigator}
+            component={InventoryBottomTabNavigator}
             options={{
                 title: 'Inventory', drawerIcon: ({color, size}) => {
                     return (<Ionicons name="grid" size={size} color={color}/>)

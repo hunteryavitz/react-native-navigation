@@ -4,7 +4,7 @@ import {INVENTORY} from "../../data/inventory-data"
 import {addItem} from "../../store/redux/inventory"
 import Ionicons from "react-native-vector-icons/Ionicons"
 
-function SearchScreen() {
+function InventorySearchScreen() {
     const currentInventoryIds = useSelector(state => state.inventory.items)
     const dispatch = useDispatch()
 
@@ -134,4 +134,4 @@ const styles = StyleSheet.create({
     },
 })
 
-export default SearchScreen
+export default InventorySearchScreen

@@ -54,13 +54,6 @@ export default function DevScreen() {
 
             <CountdownCircleDemo
                 key={countdownReset}
-                isPlaying
-                duration={7}
-                colors={['#004777', '#F7B801', '#A30000', '#A30000']}
-                onCompleted={() => {
-                    console.log('Timer completed')
-                    return { shouldRepeat: true, duration: 10, delay: 1.5 }
-                }}
             />
 
             <View style={styles.button}>

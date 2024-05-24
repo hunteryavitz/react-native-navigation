@@ -1,22 +1,34 @@
 import {Text, View, StyleSheet, TouchableOpacity} from "react-native"
 import {useSelector} from "react-redux"
 import {INVENTORY} from "../../data/inventory-data"
-// import {addItem} from "../../store/redux/inventory"
 import Ionicons from "react-native-vector-icons/Ionicons";
 import InventoryList from "../../components/Inventory/InventoryList";
+import {ANIMALS} from "../../data/animal-data";
+import AnimalList from "../../components/AnimalsList/AnimalList";
 
-function StoreScreen() {
+
+function AnimalsCollectScreen() {
+
+    const collectedAnimalIds = useSelector(state => state.collectedAnimals.collected)
+    const collectedAnimals = ANIMALS.filter(animal => collectedAnimalIds.includes(animal.id))
+
+
+
+    //
     const currentInventoryIds = useSelector(state => state.inventory.items)
     // const dispatch = useDispatch()
 
+    //
     const availableItems = INVENTORY.filter(inventoryItem => currentInventoryIds.includes(inventoryItem.id))
 
+    //
     function handleStoreInventory() {
         const randomItem = availableItems[Math.floor(Math.random() * availableItems.length)]
         alert('Stored ' + randomItem.description + randomItem.title)
         // dispatch(addItem(randomItem.id))
     }
 
+    //
     if (availableItems.length === 0 || !availableItems) {
         return (
             <View style={styles.screenEmpty}>
@@ -27,23 +39,32 @@ function StoreScreen() {
         )
     }
 
+    if (collectedAnimals.length === 0 || !collectedAnimals) {
+        return (
+            <View style={styles.screen}>
+                <Text style={styles.text}>None collected!</Text>
+            </View>
+        )
+    }
+
+    //
     return (
         <View style={styles.screen}>
             <View style={styles.titles}>
                 <View style={styles.mainTitleRow}>
                     <Text style={styles.title}>Store</Text>
                     <View style={styles.titleIcon}>
-                        <Ionicons name="grid" size={32} color="#351401" />
+                        <Ionicons name="layers-outline" size={32} color="#351401" />
                     </View>
                 </View>
-                <Text style={styles.subtitle}>Browse your inventory for items to store.</Text>
+                <Text style={styles.subtitle}>Browse your collection for animals to recruit.</Text>
             </View>
             <View style={styles.container}>
-                <View style={styles.content}>
-                    <InventoryList inventoryItems={availableItems} />
+                <View style={styles.screenCollected}>
+                    <AnimalList animals={collectedAnimals} />
                 </View>
                 <TouchableOpacity style={styles.control} onPress={handleStoreInventory}>
-                    <Text style={styles.controlText}>STORE <Ionicons name="grid" size={16} color="#E4BAA1" /></Text>
+                    <Text style={styles.controlText}>RECRUIT <Ionicons name="layers-outline" size={16} color="#E4BAA1" /></Text>
                 </TouchableOpacity>
             </View>
         </View>
@@ -51,6 +72,15 @@ function StoreScreen() {
 }
 
 const styles = StyleSheet.create({
+    screenCollected: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    text: {
+        fontSize: 20,
+        color: '#fff'
+    },
     screen: {
         flex: 1,
         justifyContent: 'center',
@@ -135,4 +165,4 @@ const styles = StyleSheet.create({
     },
 })
 
-export default StoreScreen
+export default AnimalsCollectScreen
