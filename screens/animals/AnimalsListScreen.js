@@ -1,9 +1,10 @@
-import {Text, View, StyleSheet, TouchableOpacity} from "react-native"
+import {Text, View, StyleSheet, TouchableOpacity, Image, FlatList} from "react-native"
 import {useSelector} from "react-redux"
 import Ionicons from "react-native-vector-icons/Ionicons"
 import {ANIMAL_CATEGORIES, ANIMALS} from "../../data/animal-data"
-import {useLayoutEffect} from "react"
+import React, {useLayoutEffect} from "react"
 import AnimalList from "../../components/AnimalsList/AnimalList"
+import CategoryGridTile from "../../components/CategoryGridTile";
 
 function AnimalsListScreen({ route, navigation }) {
     const categoryId = route.params.categoryId
@@ -30,29 +31,68 @@ function AnimalsListScreen({ route, navigation }) {
         )
     }
 
+    const handleClaimAnimal = () => {
+        console.log('Claimed animal')
+        alert('Claimed animal')
+    }
+
+    function renderCategoryItem(itemData) {
+        function pressHandler() {
+            navigation.navigate('Animals', {
+                categoryId: itemData.item.id
+            });
+        }
+
+        return (<CategoryGridTile title={itemData.item.title} icon={itemData.item.icon} onPress={pressHandler}/>);
+    }
+
     return (
         <View style={styles.screen}>
             <View style={styles.titles}>
                 <View style={styles.mainTitleRow}>
                     <Text style={styles.title}>Craft</Text>
                     <View style={styles.titleIcon}>
-                        <Ionicons name="hammer" size={32} color="#351401" />
+                        <Ionicons name="list-outline" size={32} color="#351401" />
                     </View>
                 </View>
-                <Text style={styles.subtitle}>Combine items to craft a new item.</Text>
+                <Text style={styles.subtitle}>Claim an animal to add to the collection.</Text>
             </View>
             <View style={styles.container}>
-                <View style={styles.content}>
-                    <AnimalList animals={displayedAnimals} />
-                </View>
-                <TouchableOpacity style={styles.control} onPress={handleCraftInventory}>
-                    <Text style={styles.controlText}>CRAFT <Ionicons name="hammer" size={16} color="#E4BAA1" /></Text>
+                <View style={styles.screenList}>
+                    <Image source={require('../../assets/geography.jpg')} style={styles.bg}/>
+                    <FlatList
+                        style={styles.list}
+                        data={ANIMAL_CATEGORIES}
+                        keyExtractor={(item) => item.id}
+                        renderItem={renderCategoryItem}
+                    />
+                </View>)
+                {/*<View style={styles.content}>*/}
+                {/*    <AnimalList animals={displayedAnimals} />*/}
+                {/*</View>*/}
+                <TouchableOpacity style={styles.control} onPress={handleClaimAnimal}>
+                    <Text style={styles.controlText}>CLAIM <Ionicons name="list-outline" size={16} color="#E4BAA1" /></Text>
                 </TouchableOpacity>
             </View>
         </View>
     )}
 
 const styles = StyleSheet.create({
+    screenList: {
+        flex: 1,
+        width: '100%',
+        justifyContent: 'center', alignItems: 'center', backgroundColor: '#E4BAA1',
+    },
+    bg: {
+        position: 'absolute',
+        width: '100%',
+        height: '100%',
+        opacity: 0.4,
+    },
+    list: {
+        flexDirection: 'column',
+        width: '100%',
+    },
     screen: {
         flex: 1,
         justifyContent: 'center',

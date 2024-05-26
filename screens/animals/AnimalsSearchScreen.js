@@ -127,7 +127,7 @@ function AnimalsSearchScreen() {
                 <View style={styles.mainTitleRow}>
                     <Text style={styles.title}>Search</Text>
                     <View style={styles.titleIcon}>
-                        <Ionicons name="aperture" size={32} color="#351401" />
+                        <Ionicons name="map-outline" size={32} color="#351401" />
                     </View>
                 </View>
                 <Text style={styles.subtitle}>Search for new animals to unlock and collect.</Text>
@@ -172,8 +172,8 @@ function AnimalsSearchScreen() {
 \
 
             </View>
-                <TouchableOpacity style={styles.control} onPress={handleSearchInventory}>
-                    <Text style={styles.controlText}>SEARCH <Ionicons name="aperture" size={16} color="#E4BAA1" /></Text>
+                <TouchableOpacity style={styles.control} onPress={handleSearchAnimal}>
+                    <Text style={styles.controlText}>SEARCH <Ionicons name="map-outline" size={16} color="#E4BAA1" /></Text>
                 </TouchableOpacity>
             </View>
         </View>
