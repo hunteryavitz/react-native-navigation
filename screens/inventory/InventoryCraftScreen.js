@@ -1,10 +1,10 @@
-import {Text, View, StyleSheet, TouchableOpacity} from "react-native"
+import {Text, View, StyleSheet, TouchableOpacity, Button} from "react-native"
 import {useDispatch, useSelector} from "react-redux"
 import {INVENTORY} from "../../data/inventory-data"
 import {addItem} from "../../store/redux/inventory"
 import Ionicons from "react-native-vector-icons/Ionicons"
 
-function InventoryCraftScreen() {
+function InventoryCraftScreen({ navigation }) {
     const currentInventoryIds = useSelector(state => state.inventory.items)
     const dispatch = useDispatch()
 
@@ -44,6 +44,7 @@ function InventoryCraftScreen() {
                 <TouchableOpacity style={styles.control} onPress={handleCraftInventory}>
                     <Text style={styles.controlText}>CRAFT <Ionicons name="hammer" size={16} color="#E4BAA1" /></Text>
                 </TouchableOpacity>
+                <Button onPress={() => navigation.navigate('InventoryCraftDetailScreen')} title="Details" />
             </View>
         </View>
     )

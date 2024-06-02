@@ -1,22 +1,21 @@
-import React from 'react'
 import {FlatList, View, StyleSheet, Image} from 'react-native'
-import CategoryGridTile from "../components/CategoryGridTile"
-import {ANIMAL_CATEGORIES} from "../data/animal-data"
+import CategoryGridTile from "../../components/CategoryGridTile"
+import {ANIMAL_CATEGORIES} from "../../data/animal-data"
 
-function CategoriesScreen({navigation}) {
+function AnimalsCategoryScreen({navigation}) {
 
     function renderCategoryItem(itemData) {
         function pressHandler() {
-            // navigation.navigate('Animals', {
-            //     categoryId: itemData.item.id
-            // });
+            navigation.navigate('AnimalsList', {
+                categoryId: itemData.item.id
+            });
         }
 
         return (<CategoryGridTile title={itemData.item.title} icon={itemData.item.icon} onPress={pressHandler}/>);
     }
 
     return (<View style={styles.screen}>
-        <Image source={require('../assets/geography.jpg')} style={styles.bg}/>
+        <Image source={require('../../assets/geography.jpg')} style={styles.bg}/>
             <FlatList
                 style={styles.list}
                 data={ANIMAL_CATEGORIES}
@@ -45,4 +44,4 @@ const styles = StyleSheet.create({
 });
 
 
-export default CategoriesScreen;
+export default AnimalsCategoryScreen;

@@ -1,11 +1,11 @@
-import {Text, View, StyleSheet, TouchableOpacity} from "react-native"
+import {Text, View, StyleSheet, TouchableOpacity, Button} from "react-native"
 import {useSelector} from "react-redux"
 import {INVENTORY} from "../../data/inventory-data"
 // import {addItem} from "../../store/redux/inventory"
 import Ionicons from "react-native-vector-icons/Ionicons";
 import InventoryList from "../../components/Inventory/InventoryList";
 
-function InventoryStoreScreen() {
+function InventoryStoreScreen({ navigation }) {
     const currentInventoryIds = useSelector(state => state.inventory.items)
     // const dispatch = useDispatch()
 
@@ -45,6 +45,8 @@ function InventoryStoreScreen() {
                 <TouchableOpacity style={styles.control} onPress={handleStoreInventory}>
                     <Text style={styles.controlText}>STORE <Ionicons name="grid" size={16} color="#E4BAA1" /></Text>
                 </TouchableOpacity>
+                <Button onPress={() => navigation.navigate('InventoryStoreDetailScreen')} title="Details" />
+
             </View>
         </View>
     )

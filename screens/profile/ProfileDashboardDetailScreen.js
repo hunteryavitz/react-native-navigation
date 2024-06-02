@@ -4,7 +4,7 @@ const ProfileDashboardDetailScreen = ({ navigation }) => {
     return (
         <View>
             <Text>Profile Dashboard Details</Text>
-            <Button onPress={() => navigation.navigate('ProfileAchievementsScreen')} title="Return" />
+            <Button onPress={() => navigation.navigate('ProfileDashboardScreen')} title="Return" />
         </View>
     )
 }

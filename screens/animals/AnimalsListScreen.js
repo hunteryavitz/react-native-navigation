@@ -1,10 +1,9 @@
-import {Text, View, StyleSheet, TouchableOpacity, Image, FlatList} from "react-native"
+import {Text, View, StyleSheet, TouchableOpacity, Image, FlatList, Button} from "react-native"
 import {useSelector} from "react-redux"
 import Ionicons from "react-native-vector-icons/Ionicons"
 import {ANIMAL_CATEGORIES, ANIMALS} from "../../data/animal-data"
 import React, {useLayoutEffect} from "react"
-import AnimalList from "../../components/AnimalsList/AnimalList"
-import CategoryGridTile from "../../components/CategoryGridTile";
+import AnimalList from "../../components/AnimalsList/AnimalList";
 
 function AnimalsListScreen({ route, navigation }) {
     const categoryId = route.params.categoryId
@@ -36,16 +35,6 @@ function AnimalsListScreen({ route, navigation }) {
         alert('Claimed animal')
     }
 
-    function renderCategoryItem(itemData) {
-        function pressHandler() {
-            navigation.navigate('Animals', {
-                categoryId: itemData.item.id
-            });
-        }
-
-        return (<CategoryGridTile title={itemData.item.title} icon={itemData.item.icon} onPress={pressHandler}/>);
-    }
-
     return (
         <View style={styles.screen}>
             <View style={styles.titles}>
@@ -58,21 +47,13 @@ function AnimalsListScreen({ route, navigation }) {
                 <Text style={styles.subtitle}>Claim an animal to add to the collection.</Text>
             </View>
             <View style={styles.container}>
-                <View style={styles.screenList}>
-                    <Image source={require('../../assets/geography.jpg')} style={styles.bg}/>
-                    <FlatList
-                        style={styles.list}
-                        data={ANIMAL_CATEGORIES}
-                        keyExtractor={(item) => item.id}
-                        renderItem={renderCategoryItem}
-                    />
-                </View>)
-                {/*<View style={styles.content}>*/}
-                {/*    <AnimalList animals={displayedAnimals} />*/}
-                {/*</View>*/}
+                <View style={styles.content}>
+                    <AnimalList animals={displayedAnimals} />
+                </View>
                 <TouchableOpacity style={styles.control} onPress={handleClaimAnimal}>
                     <Text style={styles.controlText}>CLAIM <Ionicons name="list-outline" size={16} color="#E4BAA1" /></Text>
                 </TouchableOpacity>
+                <Button onPress={() => navigation.navigate('AnimalsListDetailScreen')} title="Details" />
             </View>
         </View>
     )}

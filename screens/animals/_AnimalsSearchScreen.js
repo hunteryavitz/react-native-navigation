@@ -9,7 +9,7 @@ import {addCaptured} from "../../store/redux/collected"
 import Ionicons from "react-native-vector-icons/Ionicons"
 import {removeAnimalDrop} from "../../store/redux/drops"
 
-function AnimalsSearchScreen() {
+function _AnimalsSearchScreen() {
     const animalDrops = useSelector(state => state.drops.animalDrops)
     const capturedAnimals = useSelector(state => state.collectedAnimals.captured)
     const collectedAnimals = useSelector(state => state.collectedAnimals.collected)
@@ -175,6 +175,7 @@ function AnimalsSearchScreen() {
                 <TouchableOpacity style={styles.control} onPress={handleSearchAnimal}>
                     <Text style={styles.controlText}>SEARCH <Ionicons name="map-outline" size={16} color="#E4BAA1" /></Text>
                 </TouchableOpacity>
+                <Button onPress={() => navigation.navigate('AnimalsSearchDetailScreen')} title="Details" />
             </View>
         </View>
     )
@@ -263,4 +264,180 @@ const styles = StyleSheet.create({
     },
 })
 
-export default AnimalsSearchScreen
+//
+// function AnimalBottomTabNavigator() {
+//     return <Tab.Navigator
+//         screenOptions={{
+//             headerShown: false,
+//             sceneContainerStyle: {
+//                 backgroundColor: '#351401',
+//             },
+//             tabBarStyle: {
+//                 backgroundColor: '#351401',
+//             },
+//             tabBarInactiveTintColor: '#A1E3E3',
+//             tabBarActiveTintColor: '#351401',
+//             tabBarActiveBackgroundColor: '#E4BAA1',
+//         }}
+//     >
+//         <Tab.Screen
+//             name="Store"
+//             component={AnimalsCollectScreen}
+//             options={{
+//                 tabBarIcon: ({color, size}) => {
+//                     return (<Ionicons name="layers-outline" size={size} color={color}/>)
+//                 }
+//             }}
+//         />
+//         <Tab.Screen
+//             name="Craft"
+//             component={AnimalsListScreen}
+//             options={{
+//                 tabBarIcon: ({color, size}) => {
+//                     return (<Ionicons name="list-outline" size={size} color={color}/>)
+//                 },
+//             }}
+//         />
+//         <Tab.Screen
+//             name="Search"
+//             component={_AnimalsSearchScreen}
+//             options={{
+//                 tabBarIcon: ({color, size}) => {
+//                     return (<Ionicons name="map-outline" size={size} color={color}/>)
+//                 }
+//             }}
+//         />
+//     </Tab.Navigator>
+// }
+
+// function InventoryBottomTabNavigator() {
+//     return <Tab.Navigator
+//         screenOptions={{
+//             headerShown: false,
+//             sceneContainerStyle: {
+//                 backgroundColor: '#351401',
+//             },
+//             tabBarStyle: {
+//                 backgroundColor: '#351401',
+//             },
+//             tabBarInactiveTintColor: '#A1E3E3',
+//             tabBarActiveTintColor: '#351401',
+//             tabBarActiveBackgroundColor: '#E4BAA1',
+//         }}
+//     >
+//         <Tab.Screen
+//             name="Store"
+//             component={CollectScreen}
+//             options={{
+//                 tabBarIcon: ({color, size}) => {
+//                     return (<Ionicons name="grid" size={size} color={color}/>)
+//                 }
+//             }}
+//         />
+//         <Tab.Screen
+//             name="Craft"
+//             component={ListScreen}
+//             options={{
+//                 tabBarIcon: ({color, size}) => {
+//                     return (<Ionicons name="hammer" size={size} color={color}/>)
+//                 },
+//             }}
+//         />
+//         <Tab.Screen
+//             name="Search"
+//             component={InventorySearchScreen}
+//             options={{
+//                 tabBarIcon: ({color, size}) => {
+//                     return (<Ionicons name="aperture" size={size} color={color}/>)
+//                 }
+//             }}
+//         />
+//     </Tab.Navigator>
+// }
+
+// function DrawerNavigator() {
+//     return <Drawer.Navigator
+//         screenOptions={{
+//             headerStyle: {
+//                 backgroundColor: '#351401',
+//             },
+//             headerTintColor: '#E4BAA1',
+//             sceneContainerStyle: {
+//                 backgroundColor: '#3F2F25',
+//             },
+//             drawerContentStyle: {
+//                 backgroundColor: '#351401',
+//             },
+//             drawerInactiveTintColor: '#A1E3E3',
+//             drawerActiveTintColor: '#351401',
+//             drawerActiveBackgroundColor: '#E4BAA1',
+//         }}
+//     >
+//         <Drawer.Screen
+//             name="Categories"
+//             component={CategoriesScreen}
+//             options={{
+//                 title: 'Animal Categories', drawerIcon: ({color, size}) => {
+//                     return (<Ionicons name="apps" size={size} color={color}/>)
+//                 }
+//             }}
+//         />
+//
+//         <Drawer.Screen
+//             name="Favorites"
+//             component={FavoritesScreen}
+//             options={{
+//                 title: 'Favorites', drawerIcon: ({color, size}) => {
+//                     return (<Ionicons name="star" size={size} color={color}/>)
+//                 }
+//             }}
+//         />
+//
+//         <Drawer.Screen
+//             name="Animals"
+//             component={AnimalBottomTabNavigator}
+//             options={{
+//                 title: 'Animals', drawerIcon: ({color, size}) => {
+//                     return (<Ionicons name="paw-outline" size={size} color={color}/>)
+//                 }
+//             }}
+//         />
+//
+//         <Drawer.Screen
+//             name="Inventory"
+//             component={InventoryBottomTabNavigator}
+//             options={{
+//                 title: 'Inventory', drawerIcon: ({color, size}) => {
+//                     return (<Ionicons name="grid" size={size} color={color}/>)
+//                 }
+//             }}
+//         />
+//
+//         <Drawer.Screen
+//             name="Collected"
+//             component={CollectedScreen}
+//             options={{
+//                 title: 'Collected', drawerIcon: ({color, size}) => {
+//                     return (<Ionicons name="cube" size={size} color={color}/>)
+//                 }
+//             }}
+//         />
+//         <Drawer.Screen name={'Map'}
+//                        component={MapScreen}
+//                        options={{
+//                            title: 'Map', drawerIcon: ({color, size}) => {
+//                                return (<Ionicons name="map" size={size} color={color}/>)
+//                            }
+//                        }}/>
+//         <Drawer.Screen name={'Dev'}
+//                        component={DevScreen}
+//                        options={{
+//                            title: 'Dev', drawerIcon: ({color, size}) => {
+//                                return (<Ionicons name="build" size={size} color={color}/>)
+//                            }
+//                        }}/>
+//     </Drawer.Navigator>
+// }
+
+
+export default _AnimalsSearchScreen

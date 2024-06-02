@@ -1,10 +1,10 @@
-import {Text, View, StyleSheet, TouchableOpacity} from "react-native"
+import {Text, View, StyleSheet, TouchableOpacity, Button} from "react-native"
 import {useDispatch, useSelector} from "react-redux"
 import {INVENTORY} from "../../data/inventory-data"
 import {addItem} from "../../store/redux/inventory"
 import Ionicons from "react-native-vector-icons/Ionicons"
 
-function InventorySearchScreen() {
+function InventorySearchScreen({ navigation }) {
     const currentInventoryIds = useSelector(state => state.inventory.items)
     const dispatch = useDispatch()
 
@@ -46,6 +46,7 @@ function InventorySearchScreen() {
                 <TouchableOpacity style={styles.control} onPress={handleSearchInventory}>
                     <Text style={styles.controlText}>SEARCH <Ionicons name="aperture" size={16} color="#E4BAA1" /></Text>
                 </TouchableOpacity>
+                <Button onPress={() => navigation.navigate('InventorySearchDetailScreen')} title="Details" />
             </View>
         </View>
     )

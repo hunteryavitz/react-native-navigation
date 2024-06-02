@@ -1,11 +1,11 @@
-import {Text, View, StyleSheet, TouchableOpacity} from "react-native"
+import {Text, View, StyleSheet, TouchableOpacity, Button} from "react-native"
 import {useSelector} from "react-redux"
 import Ionicons from "react-native-vector-icons/Ionicons";
 import {ANIMALS} from "../../data/animal-data";
 import AnimalList from "../../components/AnimalsList/AnimalList";
 
 
-function AnimalsCollectScreen() {
+function AnimalsCollectScreen({ navigation }) {
 
     const collectedAnimalIds = useSelector(state => state.collectedAnimals.collected)
     const collectedAnimals = ANIMALS.filter(animal => collectedAnimalIds.includes(animal.id))
@@ -41,6 +41,7 @@ function AnimalsCollectScreen() {
                 <TouchableOpacity style={styles.control} onPress={handleRecruitAnimal}>
                     <Text style={styles.controlText}>RECRUIT <Ionicons name="layers-outline" size={16} color="#E4BAA1" /></Text>
                 </TouchableOpacity>
+                <Button title={'Details'} onPress={() => navigation.navigate('AnimalsCollectDetailScreen')} />
             </View>
         </View>
     )
